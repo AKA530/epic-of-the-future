@@ -37,7 +37,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* ================= 页头 ================= */
   .hero { max-width: 1040px; margin: 0 auto 16px; text-align: center; position: relative; }
 
   .hero__title {
@@ -58,7 +57,6 @@
     color: var(--muted);
   }
 
-  /* 登录状态栏 */
   .auth-bar {
     display: flex;
     align-items: center;
@@ -94,7 +92,6 @@
 
   .auth-bar__btn:hover { color: #fff; background: var(--dot); }
 
-  /* ================= 搜索栏 ================= */
   .searchbar {
     display: flex;
     gap: 8px;
@@ -125,1758 +122,1786 @@
     border: none; border-radius: 999px;
     cursor: pointer;
   }
-  
-    /* ================= 主导航（移动端横向滚动） ================= */
-    .tabs {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 8px;
-      max-width: 1040px;
-      margin: 0 auto 24px;
-      padding-bottom: 6px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-  
-    .tabs::-webkit-scrollbar { display: none; }
-  
-    .tab {
-      flex-shrink: 0;
-      padding: 8px 16px;
-      font: inherit; font-size: 13px;
-      color: var(--text);
-      background: #fff;
-      border: 1px solid var(--card-border);
-      border-radius: 999px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: color .2s, background .2s, box-shadow .2s;
-    }
-  
-    .tab.is-active {
-      color: #fff;
-      background: linear-gradient(135deg, var(--dot), var(--dot-2));
-      border-color: transparent;
-      box-shadow: 0 5px 14px rgba(91, 124, 250, .3);
-    }
-  
-    /* ================= 主容器 ================= */
-    .main { max-width: 1040px; margin: 0 auto; }
-  
-    /* ================= 编辑表单 ================= */
-    .editor {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding: 16px;
-      margin-bottom: 24px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(31, 36, 48, .06);
-      transition: border-color .25s;
-    }
-  
-    .editor[data-editing="true"] {
-      border-color: var(--dot);
-      box-shadow: 0 0 0 3px rgba(91, 124, 250, .12), 0 6px 20px rgba(31, 36, 48, .06);
-    }
-  
-    .editor--compact { padding: 14px; margin-bottom: 16px; background: #fafbfe; box-shadow: none; }
-  
-    .field { display: flex; flex-direction: column; gap: 5px; }
-    .field--full { grid-column: 1 / -1; }
-    .field label { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
-  
-    .field input[type="text"],
-    .field textarea,
-    .field select {
-      width: 100%;
-      padding: 10px 12px;
-      font: inherit; font-size: 16px;  /* 16px 防止 iOS 自动放大 */
-      color: var(--title);
-      background: #fbfcfe;
-      border: 1px solid #dfe3ee;
-      border-radius: 10px;
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-    }
-  
-    .field textarea { resize: vertical; min-height: 56px; }
-  
-    .field input:focus, .field textarea:focus, .field select:focus {
-      background: #fff;
-      border-color: var(--dot);
-      box-shadow: 0 0 0 3px rgba(91, 124, 250, .15);
-    }
-  
-    .field input[type="file"] {
-      width: 100%; padding: 8px 10px;
-      font: inherit; font-size: 13px;
-      color: var(--text);
-      background: #fbfcfe;
-      border: 1px dashed #d5dbeb;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  
-    .avatar-preview { margin-top: 8px; }
-    .avatar-preview img { max-width: 130px; max-height: 130px; border-radius: 10px; border: 1px solid var(--card-border); display: block; }
-  
-    .field__tools { display: flex; justify-content: flex-end; margin-top: 2px; }
-  
-    .link-btn {
-      padding: 4px 12px;
-      font: inherit; font-size: 12px;
-      color: var(--dot);
-      background: rgba(91, 124, 250, .10);
-      border: none; border-radius: 999px;
-      cursor: pointer;
-    }
-  
-    .form-actions { grid-column: 1 / -1; display: flex; gap: 10px; }
-  
-    .btn {
-      flex: 1 1 auto;
-      padding: 12px 16px;
-      font: inherit; font-size: 15px; font-weight: 600;
-      color: #fff;
-      background: linear-gradient(135deg, var(--dot), var(--dot-2));
-      border: none; border-radius: 10px;
-      cursor: pointer;
-      transition: transform .15s, box-shadow .2s;
-    }
-  
-    .btn:active { transform: scale(.98); }
-  
-    .btn--ghost {
-      flex: 0 0 auto;
-      color: var(--text);
-      background: #fff;
-      border: 1px solid #dfe3ee;
-      font-weight: 500;
-    }
-  
-    /* ================= 时间轴 ================= */
-    .timeline { position: relative; max-width: 960px; margin: 0 auto; padding: 24px 0; }
-  
-    .timeline::before {
-      content: ""; position: absolute;
-      left: 50%; top: 0; bottom: 0;
-      width: 2px; margin-left: -1px;
-      background: var(--line); border-radius: 2px;
-    }
-  
-    .timeline.is-empty::before { display: none; }
-  
-    .timeline__empty, .empty {
-      margin: 0; padding: 28px 16px;
-      text-align: center; font-size: 14px;
-      color: var(--muted);
-      background: var(--card-bg);
-      border: 1px dashed #d7dcea; border-radius: 14px;
-    }
-  
-    .entries > .empty { grid-column: 1 / -1; }
-  
-    .timeline-item { position: relative; width: 50%; padding: 0 var(--gap) var(--vgap) 0; }
-    .timeline-item:nth-child(even) { margin-left: 50%; padding: 0 0 var(--vgap) var(--gap); }
-    .timeline-item:last-child { padding-bottom: 0; }
-  
-    .timeline-item::before {
-      content: ""; position: absolute;
-      top: var(--dot-top); width: 14px; height: 14px;
-      border-radius: 50%; background: var(--dot);
-      box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px rgba(91, 124, 250, .25);
-      z-index: 2;
-    }
-  
-    .timeline-item:nth-child(odd)::before  { right: -7px; }
-    .timeline-item:nth-child(even)::before { left:  -7px; }
-  
-    .timeline-item::after {
-      content: ""; position: absolute;
-      top: calc(var(--dot-top) + 7px);
-      width: var(--gap); height: 1px; background: var(--line);
-    }
-  
-    .timeline-item:nth-child(odd)::after  { right: 0; }
-    .timeline-item:nth-child(even)::after { left:  0; }
-  
-    .card {
-      position: relative;
-      padding: 16px 70px 18px 18px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      box-shadow: 0 6px 18px rgba(31, 36, 48, .06);
-      transition: transform .25s, box-shadow .25s, border-color .3s, background .6s;
-    }
-  
-    .card__time {
-      display: inline-block; margin-bottom: 8px;
-      padding: 3px 10px; font-size: 12px;
-      color: var(--dot); background: rgba(91, 124, 250, .10);
-      border-radius: 999px;
-    }
-	
-	  .card__title { margin: 0 0 6px; font-size: 16px; line-height: 1.5; }
-	  .card__desc { margin: 0; font-size: 14px; color: var(--text); white-space: pre-line; }
-	
-	  /* ================= 通用条目卡片 ================= */
-	  .entries { 
-		  display: grid; 
-		  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-		  gap: 14px; 
-	  }
 
-	.entries--stories { grid-template-columns: 1fr; }
-
-.story-body {
-  min-height: 320px;
-  font-size: 15px;
-  line-height: 1.8;
-}
-	
-	  .entry {
-	    position: relative;
-	    padding: 16px 70px 16px 18px;
-	    background: var(--card-bg);
-	    border: 1px solid var(--card-border);
-	    border-radius: 14px;
-	    box-shadow: 0 4px 14px rgba(31, 36, 48, .05);
-	    transition: transform .2s, box-shadow .2s, border-color .3s, background .6s;
-	  }
-	
-	  .entry__name { margin: 0 0 6px; font-size: 16px; line-height: 1.5; }
-	  .entry__intro { margin: 0; font-size: 14px; color: var(--text); white-space: pre-line; }
-	  .entry__meta { margin: 8px 0 0; font-size: 13px; color: var(--text); white-space: pre-line; }
-	
-	  .entry__label {
-	    display: inline-block; margin-right: 6px;
-	    padding: 1px 9px; font-size: 11px;
-	    color: var(--muted); background: #f1f3fa;
-	    border-radius: 999px; vertical-align: 1px;
-	  }
-	
-	  .entry__head { display: flex; gap: 12px; align-items: flex-start; }
-	
-	  .entry__avatar {
-	    width: 60px; height: 60px; object-fit: cover;
-	    border-radius: 10px; border: 1px solid var(--card-border);
-	    flex-shrink: 0; background: #f1f3fa;
-	  }
-	
-	  .entry__tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0; padding: 0; list-style: none; }
-	
-	  .tag {
-	    padding: 2px 9px; font-size: 11px;
-	    color: var(--dot); background: rgba(91, 124, 250, .10);
-	    border-radius: 999px;
-	  }
-	
-	  .entry-link {
-	    color: var(--dot); text-decoration: none;
-	    border-bottom: 1px dashed rgba(91, 124, 250, .5);
-	    cursor: pointer;
-	  }
-	
-	  /* 高亮 */
-	  @keyframes flashHighlight {
-	    0%   { background-color: var(--highlight); border-color: var(--highlight); }
-	    100% { background-color: var(--card-bg); border-color: var(--card-border); }
-	  }
-	
-	  .is-highlight { animation: flashHighlight 1.8s ease-out; }
-	
-	  /* ---- 操作按钮 ---- */
-	  .entry__edit, .entry__del, .card__edit, .card__del {
-	    position: absolute; top: 10px;
-	    width: 28px; height: 28px;
-	    display: grid; place-items: center;
-	    padding: 0; font-size: 16px; line-height: 1;
-	    color: var(--muted); background: #f1f3fa;
-	    border: none; border-radius: 50%;
-	    cursor: pointer;
-	    opacity: 1;  /* 移动端常驻显示 */
-	    transition: opacity .2s, background .2s, color .2s;
-	  }
-	
-	  .entry__edit, .card__edit { right: 42px; font-size: 13px; }
-	  .entry__del,  .card__del  { right: 10px; }
-	
-	  .entry__edit:active, .card__edit:active { background: var(--dot); color: #fff; }
-	  .entry__del:active,  .card__del:active  { background: var(--danger); color: #fff; }
-	
-	  .entry__del--static { position: static; opacity: 1; flex-shrink: 0; }
-	
-	  /* 桌面端 hover 时才显示操作按钮 */
-	  @media (hover: hover) {
-	    .entry__edit, .entry__del, .card__edit, .card__del { opacity: 0; }
-	    .entry:hover .entry__edit, .entry:hover .entry__del,
-	    .card:hover .card__edit, .card:hover .card__del,
-	    .entry:focus-within .entry__edit, .entry:focus-within .entry__del,
-	    .card:focus-within .card__edit, .card:focus-within .card__del { opacity: 1; }
-	  }
-	
-	  /* ================= 世界容器 ================= */
-	  .worlds { display: flex; flex-direction: column; gap: 18px; }
-	
-	  .world {
-	    padding: 16px;
-	    background: var(--card-bg);
-	    border: 1px solid var(--card-border);
-	    border-radius: 16px;
-	    box-shadow: 0 6px 20px rgba(31, 36, 48, .06);
-	  }
-	
-	  .world__head {
-	    display: flex; align-items: center; justify-content: space-between;
-	    gap: 10px; margin-bottom: 12px;
-	  }
-	
-	  .world__name { margin: 0; font-size: 17px; }
-	
-	  .subtabs {
-	    display: flex; flex-wrap: nowrap; gap: 5px;
-	    margin-bottom: 14px; padding-bottom: 12px;
-	    border-bottom: 1px solid var(--card-border);
-	    overflow-x: auto;
-	    -webkit-overflow-scrolling: touch;
-	    scrollbar-width: none;
-	  }
-	
-	  .subtabs::-webkit-scrollbar { display: none; }
-	
-	  .subtab {
-	    flex-shrink: 0;
-	    padding: 6px 12px;
-	    font: inherit; font-size: 12px;
-	    color: var(--text); background: #f4f5fa;
-	    border: 1px solid transparent; border-radius: 999px;
-	    cursor: pointer; white-space: nowrap;
-	  }
-	
-	  .subtab.is-active {
-	    color: #fff;
-	    background: linear-gradient(135deg, var(--dot), var(--dot-2));
-	  }
-	
-	  /* ================= 搜索结果 ================= */
-	  .search-info {
-	    margin: 0 0 16px; padding: 12px 16px;
-	    font-size: 14px; color: var(--text);
-	    background: var(--card-bg);
-	    border: 1px solid var(--card-border);
-	    border-radius: 12px;
-	  }
-	
-	  .search-info strong { color: var(--dot); }
-	
-	  .search-tag {
-	    display: inline-block; margin-bottom: 6px;
-	    padding: 2px 10px; font-size: 11px;
-	    color: var(--dot); background: rgba(91, 124, 250, .10);
-	    border-radius: 999px;
-	  }
-	
-	  /* ================= 登录模态框 ================= */
-	  .modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; }
-	  .modal[hidden] { display: none; }
-	
-	  .modal__backdrop { position: absolute; inset: 0; background: rgba(31, 36, 48, .5); }
-	
-	  .modal__box {
-	    position: relative;
-	    width: min(420px, calc(100% - 32px));
-	    background: #fff; border-radius: 16px;
-	    box-shadow: 0 24px 60px rgba(31, 36, 48, .3);
-	    overflow: hidden;
-	  }
-	
-	  .modal__head {
-	    display: flex; align-items: center; justify-content: space-between;
-	    padding: 14px 18px; border-bottom: 1px solid var(--card-border);
-	  }
-	
-	  .modal__title { margin: 0; font-size: 16px; }
-	
-	  .modal__close {
-	    width: 30px; height: 30px; display: grid; place-items: center;
-	    font-size: 20px; line-height: 1; color: var(--muted);
-	    background: #f1f3fa; border: none; border-radius: 50%; cursor: pointer;
-	  }
-	
-	  .modal__body { padding: 16px 18px 20px; }
-	
-	  .modal__body .field { margin-bottom: 12px; }
-	
-	  .modal__body .btn { width: 100%; }
-	
-	  .modal__hint { margin: 0 0 14px; font-size: 13px; color: var(--muted); }
-	
-	  .link-group { margin-bottom: 16px; }
-	  .link-group__label { margin: 0 0 8px; font-size: 12px; color: var(--muted); }
-	  .link-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
-	
-	  .link-item {
-	    padding: 6px 12px; font: inherit; font-size: 13px;
-	    color: var(--text); background: #f4f5fa;
-	    border: none; border-radius: 8px; cursor: pointer;
-	  }
-	  
-	    /* ================= Toast ================= */
-	    .toast {
-	      position: fixed; left: 50%; bottom: 28px; z-index: 300;
-	      padding: 10px 20px; font-size: 13px;
-	      color: #fff; background: rgba(31, 36, 48, .93);
-	      border-radius: 999px; opacity: 0; pointer-events: none;
-	      transform: translate(-50%, 12px);
-	      transition: opacity .25s, transform .25s;
-	    }
-	  
-	    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
-	    .toast.is-err { background: var(--danger); }
-	  
-	    /* ================= 加载遮罩 ================= */
-	    .loading {
-	      position: fixed; inset: 0; z-index: 400;
-	      display: grid; place-items: center;
-	      background: rgba(245, 246, 250, .8);
-	      font-size: 14px; color: var(--muted);
-	    }
-	  
-	    .loading[hidden] { display: none; }
-	  
-	    /* ================= 响应式：窄屏单侧布局 ================= */
-	    @media (max-width: 720px) {
-	      :root { --gap: 22px; --vgap: 28px; --dot-top: 18px; }
-	  
-	      body { padding: 20px 12px 90px; }
-	  
-	      .editor { grid-template-columns: 1fr; }
-	  
-	      .timeline::before { left: 7px; margin-left: -1px; }
-	  
-	      .timeline-item,
-	      .timeline-item:nth-child(even) {
-	        width: 100%; margin-left: 0;
-	        padding: 0 0 var(--vgap) 32px;
-	      }
-	  
-	      .timeline-item:last-child { padding-bottom: 0; }
-	  
-	      .timeline-item:nth-child(odd)::before,
-	      .timeline-item:nth-child(even)::before { left: 0; right: auto; }
-	  
-	      .timeline-item:nth-child(odd)::after,
-	      .timeline-item:nth-child(even)::after {
-	        left: 14px; right: auto; width: 18px;
-	      }
-	  
-	      .card, .entry { padding-right: 66px; }
-	    }
-	  </style>
-	  </head>
-	  <body>
-	  
-	  <div class="loading" id="loading">正在加载…</div>
-	  
-	  <header class="hero">
-	    <h1 class="hero__title">未来编年史</h1>
-	    <p class="hero__sub">Epic of the Future</p >
-	  </header>
-	  
-	  <!-- 登录状态栏 -->
-	  <div class="auth-bar" id="authBar">
-	    <span class="auth-bar__dot" id="authDot"></span>
-	    <span id="authText">未登录 · 仅可查看</span>
-	    <button class="auth-bar__btn" id="authBtn" type="button">登录</button>
-	  </div>
-	  
-	  <div class="searchbar">
-	    <input type="text" id="searchInput" class="searchbar__input" placeholder="搜索…" enterkeyhint="search">
-	    <button type="button" id="searchBtn" class="searchbar__btn">搜索</button>
-	  </div>
-	  
-	  <nav class="tabs" id="mainTabs"></nav>
-	  <main class="main" id="main"></main>
-	  
-	  <!-- 登录模态框 -->
-	  <div class="modal" id="authModal" hidden>
-	    <div class="modal__backdrop" data-action="close-auth-modal"></div>
-	    <div class="modal__box">
-	      <header class="modal__head">
-	        <h3 class="modal__title">管理员登录</h3>
-	        <button class="modal__close" type="button" data-action="close-auth-modal">×</button>
-	      </header>
-	      <div class="modal__body">
-	        <p class="modal__hint">仅管理员可登录并编辑内容。</p >
-	        <div class="field">
-	          <label>邮箱</label>
-	          <input type="text" id="authEmail" placeholder="you@example.com" autocomplete="email">
-	        </div>
-	        <div class="field">
-	          <label>密码</label>
-	          <input type="password" id="authPassword" placeholder="密码" autocomplete="current-password">
-	        </div>
-	        <button class="btn" id="authSubmit" type="button">登录</button>
-	      </div>
-	    </div>
-	  </div>
-	  
-	  <!-- 链接选择模态框 -->
-	  <div class="modal" id="linkModal" hidden>
-	    <div class="modal__backdrop" data-action="close-link-modal"></div>
-	    <div class="modal__box">
-	      <header class="modal__head">
-	        <h3 class="modal__title">选择要链接的条目</h3>
-	        <button class="modal__close" type="button" data-action="close-link-modal">×</button>
-	      </header>
-	      <div class="modal__body" id="linkModalBody"></div>
-	    </div>
-	  </div>
-	  
-	  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-	  
-	  <!-- ============ Supabase SDK ============ -->
-	  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.0/dist/umd/supabase.js"></script>
-	  
-	  <script>
-	  (function () {
-	    'use strict';
-	  
-	    /* ============================================================
-	       ⚠️ 请填入你的 Supabase 配置（第一部分 1.4 步获取）
-	       ============================================================ */
-		     var SUPABASE_URL = 'https://ghostzrlzgqnkdnestoe.supabase.co';
-		     var SUPABASE_ANON_KEY = 'sb_publishable_BWQhq7wJc-uCm6S7ynGbkQ_LOsx87Lx';
-		   
-		     /* ============================================================
-		        常量
-		        ============================================================ */
-		     var SUBS = [
-		       { key: 'factions',   label: '组织势力' },
-		       { key: 'races',      label: '种族' },
-		       { key: 'characters', label: '角色' },
-		       { key: 'settings',   label: '详细设定' }
-			   { key: 'stories',   label: '故事' }
-		     ];
-		   
-		     var SIMPLE_LABELS = {
-		       factions: '组织势力', races: '种族',
-		       settings: '详细设定', characters: '角色',stories:'故事'
-		     };
-		   
-		     var LINK_RE = /\[\[link:([^|\]]+)\|([^\]]*)\]\]/g;
-		   
-		     /* ============================================================
-		        Supabase 客户端
-		        ============================================================ */
-		     var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-		   
-		     /* ============================================================
-		        应用状态
-		        ============================================================ */
-		     var isAdmin = false;   // 是否已登录为管理员
-		   
-		     var store = {
-		       timeline: [], factions: [], races: [], characters: [],
-		       settings: [], attached: [], parallel: [],stories:[]
-		     };
-		   
-		     var state = {
-		       activeTab: 'timeline',
-		       worldSubTab: {},
-		       searchKeyword: '',
-		       editing: null,
-		       highlightId: null
-		     };
-		   
-		     var linkPickerTarget = null;
-		   
-		     /* ============================================================
-		        小工具
-		        ============================================================ */
-		     function uid() {
-		       return crypto.randomUUID ? crypto.randomUUID()
-		         : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-		             var r = Math.random() * 16 | 0;
-		             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-		           });
-		     }
-		   
-		     var ESC_MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-		     function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return ESC_MAP[c]; }); }
-		   
-		     function renderRichText(text) {
-		       if (!text) return '';
-		       var str = String(text), result = '', last = 0, match;
-		       LINK_RE.lastIndex = 0;
-		       while ((match = LINK_RE.exec(str)) !== null) {
-		         result += esc(str.slice(last, match.index));
-		         result += '<a class="entry-link" href=" " data-link-id="' +
-		           esc(match[1]) + '">' + esc(match[2] || '链接') + '</a >';
-		         last = match.index + match[0].length;
-		       }
-		       result += esc(str.slice(last));
-		       return result;
-		     }
-		   
-		     function plainText(t) { return String(t == null ? '' : t).replace(LINK_RE, '$2'); }
-		   
-		     var toastTimer = null;
-		     function toast(msg, type) {
-		       var el = document.getElementById('toast');
-		       if (!el) return;
-		       el.textContent = msg;
-		       el.className = 'toast is-visible' + (type === 'err' ? ' is-err' : '');
-		       clearTimeout(toastTimer);
-		       toastTimer = setTimeout(function () { el.className = 'toast'; }, 2400);
-		     }
-		   
-		     function fileToDataUrl(file) {
-		       return new Promise(function (res, rej) {
-		         var r = new FileReader();
-		         r.onload = function () { res(r.result); };
-		         r.onerror = rej;
-		         r.readAsDataURL(file);
-		       });
-		     }
-		   
-		     function shrinkImage(dataUrl, maxSize) {
-		       return new Promise(function (resolve) {
-		         var img = new Image();
-		         img.onload = function () {
-		           var w = img.width, h = img.height;
-		           if (w <= maxSize && h <= maxSize) { resolve(dataUrl); return; }
-		           var ratio = Math.min(maxSize / w, maxSize / h);
-		           w = Math.round(w * ratio); h = Math.round(h * ratio);
-		           var c = document.createElement('canvas');
-		           c.width = w; c.height = h;
-		           c.getContext('2d').drawImage(img, 0, 0, w, h);
-		           resolve(c.toDataURL('image/jpeg', 0.82));
-		         };
-		         img.onerror = function () { resolve(dataUrl); };
-		         img.src = dataUrl;
-		       });
-		     }
-		   
-		     /* ============================================================
-		        数据库操作
-		        ============================================================ */
-		   
-		     /* 从 Supabase 拉取全部数据 */
-		     async function fetchAll() {
-		       var res = await supabase.from('entries').select('*').order('created_at', { ascending: true });
-		       if (res.error) {
-		         console.error('加载失败：', res.error);
-		         toast('数据加载失败，请刷新重试', 'err');
-		         return;
-		       }
-		   
-		       /* 重置本地缓存 */
-		       store.timeline = []; store.factions = []; store.races = [];
-		       store.characters = []; store.settings = [];
-		       store.attached = []; store.parallel = []; store.stories = [];
-		   
-		       var rows = res.data || [];
-		   
-		       /* 先把所有世界容器建立索引（parent_id → world对象） */
-		       var worldMap = {};
-		       rows.forEach(function (row) {
-		         if (row.module === 'attached' || row.module === 'parallel') {
-		           if (!row.parent_id) {
-		             var world = Object.assign({ id: row.id }, row.data);
-		             world.factions = []; world.races = [];
-		             world.characters = []; world.settings = []; 
-					 world.stories = [];
-		             store[row.module].push(world);
-		             worldMap[row.id] = world;
-		           }
-		         }
-		       });
-		   
-		       /* 再填充各个条目 */
-		       rows.forEach(function (row) {
-		         var item = Object.assign({ id: row.id }, row.data);
-		   
-		         if (row.parent_id && row.sub_module && worldMap[row.parent_id]) {
-		           /* 世界容器的子条目 */
-		           var world = worldMap[row.parent_id];
-		           if (!world[row.sub_module]) world[row.sub_module] = [];
-		           world[row.sub_module].push(item);
-		         } else if (row.module === 'timeline') {
-		           store.timeline.push(item);
-		         } else if (row.module === 'factions' || row.module === 'races' ||
-		                    row.module === 'characters' || row.module === 'settings' || 
-						   row.module === 'stories') {
-		           store[row.module].push(item);
-		         }
-		         /* 世界容器本身已经处理过了，跳过 */
-		       });
-		     }
-		   
-		     /* 插入一条记录 */
-		     async function dbInsert(module, parentId, subModule, data) {
-		       var row = {
-		         module: module,
-		         parent_id: parentId || null,
-		         sub_module: subModule || null,
-		         data: data
-		       };
-		       var res = await supabase.from('entries').insert(row).select().single();
-		       if (res.error) { console.error(res.error); toast('保存失败', 'err'); return null; }
-		       return res.data;
-		     }
-		   
-		     /* 更新一条记录 */
-		     async function dbUpdate(id, data) {
-		       var res = await supabase.from('entries')
-		         .update({ data: data, updated_at: new Date().toISOString() })
-		         .eq('id', id);
-		       if (res.error) { console.error(res.error); toast('更新失败', 'err'); return false; }
-		       return true;
-		     }
-		   
-		     /* 删除一条记录 */
-		     async function dbDelete(id) {
-		       var res = await supabase.from('entries').delete().eq('id', id);
-		       if (res.error) { console.error(res.error); toast('删除失败', 'err'); return false; }
-		       return true;
-		     }
-		   
-		     /* 
-			 ============================================================
-			      数据访问
-			      ============================================================ */
-			   function getList(worldKey, worldId, listKey) {
-			     if (!worldKey) return store[listKey] || null;
-			     var worlds = store[worldKey] || [];
-			     for (var i = 0; i < worlds.length; i++) {
-			       if (worlds[i].id === worldId) {
-			         if (!Array.isArray(worlds[i][listKey])) worlds[i][listKey] = [];
-			         return worlds[i][listKey];
-			       }
-			     }
-			     return null;
-			   }
-			 
-			   function getEntryById(worldKey, worldId, listKey, id) {
-			     var list = getList(worldKey, worldId, listKey);
-			     if (!list) return null;
-			     for (var i = 0; i < list.length; i++) {
-			       if (list[i].id === id) return list[i];
-			     }
-			     return null;
-			   }
-			 
-			   function findCharacter(id) {
-			     if (!id) return null;
-			     for (var i = 0; i < store.characters.length; i++) {
-			       if (store.characters[i].id === id) return store.characters[i];
-			     }
-			     return null;
-			   }
-			 
-			   function characterPool(worldKey, worldId) {
-			     var pool = store.characters.slice();
-			     if (worldKey && worldId) {
-			       var worlds = store[worldKey] || [];
-			       for (var i = 0; i < worlds.length; i++) {
-			         if (worlds[i].id === worldId) {
-			           if (Array.isArray(worlds[i].characters)) pool = pool.concat(worlds[i].characters);
-			           break;
-			         }
-			       }
-			     }
-			     return pool;
-			   }
-			 
-			   function isEditing(listKey, worldKey, worldId) {
-			     var e = state.editing;
-			     if (!e) return false;
-			     return e.listKey === listKey &&
-			            (e.worldKey || '') === (worldKey || '') &&
-			            (e.worldId || '') === (worldId || '');
-			   }
-			 
-			   /* 权限：只有管理员才渲染操作按钮 */
-			   function adminOnly(html) { return isAdmin ? html : ''; }
-			 
-			   /* ============================================================
-			      HTML 片段
-			      ============================================================ */
-			   function memberSelectHTML(worldKey, worldId, selectedId) {
-			     var pool = characterPool(worldKey, worldId);
-			     var html = '<select data-field="memberId"><option value="">无</option>';
-			     for (var i = 0; i < pool.length; i++) {
-			       html += '<option value="' + esc(pool[i].id) + '"' +
-			         (pool[i].id === selectedId ? ' selected' : '') + '>' + esc(pool[i].name) + '</option>';
-			     }
-			     return html + '</select>';
-			   }
-			 
-			   function linkToolsHTML() {
-			     return adminOnly('<div class="field__tools">' +
-			       '<button type="button" class="link-btn" data-action="open-link-picker">🔗 插入链接</button></div>');
-			   }
-			 
-			   function formActionsHTML(submitAction, submitText, editing) {
-			     if (!isAdmin) return '';
-			     var html = '<div class="form-actions">';
-			     html += '<button class="btn" type="button" data-action="' + submitAction + '">' +
-			       (editing ? '保存修改' : submitText) + '</button>';
-			     if (editing) html += '<button class="btn btn--ghost" type="button" data-action="cancel-edit">取消</button>';
-			     return html + '</div>';
-			   }
-			 
-			   /* 简单条目卡片 */
-			   function simpleEntriesHTML(items, ctx) {
-			     if (!items || !items.length) return '<p class="empty">还没有内容。</p >';
-			     var html = '';
-			     for (var i = 0; i < items.length; i++) {
-			       var item = items[i];
-			       var member = findCharacter(item.memberId);
-			       html += '<div class="entry" data-entry-id="' + esc(item.id) + '">';
-			       html += adminOnly(
-			         '<button class="entry__edit" type="button" data-action="edit-entry"' +
-			         ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
-			         '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(item.id) + '" title="编辑">✎</button>' +
-			         '<button class="entry__del" type="button" data-action="del-entry"' +
-			         ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
-			         '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(item.id) + '" title="删除">×</button>');
-			       html += '<h4 class="entry__name">' + esc(item.name) + '</h4>';
-			       if (item.intro) html += '<p class="entry__intro">' + renderRichText(item.intro) + '</p >';
-			       if (member) html += '<p class="entry__meta"><span class="entry__label">成员</span>' + esc(member.name) + '</p >';
-			       html += '</div>';
-			     }
-			     return html;
-			   }
-			 
-			   /* 角色卡片 */
-			   function characterEntriesHTML(items, ctx) {
-			     if (!items || !items.length) return '<p class="empty">还没有角色。</p >';
-			     var html = '';
-			     for (var i = 0; i < items.length; i++) {
-			       var c = items[i];
-			       var tags = '';
-			       [c.gender, c.race, c.job].forEach(function (t) {
-			         if (t) tags += '<li class="tag">' + esc(t) + '</li>';
-			       });
-			       html += '<div class="entry" data-entry-id="' + esc(c.id) + '">';
-			       html += adminOnly(
-			         '<button class="entry__edit" type="button" data-action="edit-entry"' +
-			         ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
-			         '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(c.id) + '" title="编辑">✎</button>' +
-			         '<button class="entry__del" type="button" data-action="del-entry"' +
-			         ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
-			         '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(c.id) + '" title="删除">×</button>');
-			       html += '<div class="entry__head">';
-			       if (c.avatar) html += '< img class="entry__avatar" src="' + esc(c.avatar) + '" alt="">';
-			       html += '<div><h4 class="entry__name">' + esc(c.name) + '</h4>';
-			       if (tags) html += '<ul class="entry__tags">' + tags + '</ul>';
-			       html += '</div></div>';
-			       if (c.intro) html += '<p class="entry__intro" style="margin-top:10px">' + renderRichText(c.intro) + '</p >';
-			       if (c.ability) html += '<p class="entry__meta"><span class="entry__label">能力</span>' + renderRichText(c.ability) + '</p >';
-			       html += '</div>';
-			     }
-			    return html;
-			 }
-
-		  /* 故事条目卡片 */
-          function storyEntriesHTML(items, ctx) {
-            if (!items || !items.length) return '<p class="empty">还没有故事。</p >';
-            var html = '';
-            for (var i = 0; i < items.length; i++) {
-              var s = items[i];
-              html += '<div class="entry entry--story" data-entry-id="' + esc(s.id) + '">';
-              html += adminOnly(
-                '<button class="entry__edit" type="button" data-action="edit-entry"' +
-                ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
-                '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(s.id) + '" title="编辑">✎</button>' +
-                '<button class="entry__del" type="button" data-action="del-entry"' +
-                ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
-                '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(s.id) + '" title="删除">×</button>');
-              html += '<h4 class="entry__name">' + esc(s.title) + '</h4>';
-              if (s.subtitle) {
-              html += '<p class="entry__meta" style="margin-top:0">' +'<span class="entry__label">副题</span>' + esc(s.subtitle) + '</p >';
-    }
-              if (s.body) {
-              html += '<p class="entry__intro">' + renderRichText(s.body) + '</p >';
-    }
-              html += '</div>';
+  .tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    max-width: 1040px;
+    margin: 0 auto 24px;
+    padding-bottom: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
-  return html;
-}
 
-/* 故事表单 */
-function storyFormHTML(worldKey, worldId, compact) {
-  if (!isAdmin) return '';
-  var editing = isEditing('stories', worldKey, worldId);
-  var v = editing ? getEntryById(worldKey, worldId, 'stories', state.editing.id) : null;
-  function val(k) { return esc(v ? v[k] || '' : ''); }
+  .tabs::-webkit-scrollbar { display: none; }
 
-  return '<div class="editor' + (compact ? ' editor--compact' : '') + '"' +
-    ' data-form="story" data-list="stories"' +
-    ' data-world="' + esc(worldKey || '') + '" data-world-id="' + esc(worldId || '') + '"' +
-    (editing ? ' data-editing="true"' : '') + '>' +
-    '<div class="field"><label>标题</label>' +
-    '<input type="text" data-field="title" value="' + val('title') + '" placeholder="故事标题"></div>' +
-    '<div class="field"><label>副题（可选）</label>' +
-    '<input type="text" data-field="subtitle" value="' + val('subtitle') + '" placeholder="副题"></div>' +
-    '<div class="field field--full"><label>正文</label>' +
-    '<textarea class="story-body" data-field="body" placeholder="正文内容，可输入大量文字">' + val('body') + '</textarea>' +
-    linkToolsHTML() + '</div>' +
-    formActionsHTML('add-story', '＋ 添加故事', editing) + '</div>';
-}
-			 
-			   /* 
-			   ============================================================
-			        各面板
-			        ============================================================ */
-			     function timelinePanelHTML() {
-			       var items = store.timeline;
-			       var editing = isEditing('timeline', null, null);
-			       var ev = editing ? getEntryById(null, null, 'timeline', state.editing.id) : null;
-			   
-			       var posOptions = '<option value="0">插入到最前面</option>';
-			       items.forEach(function (n, i) {
-			         posOptions += '<option value="' + (i + 1) + '">插入到「' + esc(n.title) + '」之后</option>';
-			       });
-			   
-			       var listHTML = items.length
-			         ? items.map(function (n) {
-			             var h = '<article class="timeline-item"><div class="card" data-entry-id="' + esc(n.id) + '">';
-			             h += adminOnly(
-			               '<button class="card__edit" type="button" data-action="edit-entry"' +
-			               ' data-world="" data-world-id="" data-list="timeline" data-id="' + esc(n.id) + '" title="编辑">✎</button>' +
-			               '<button class="card__del" type="button" data-action="del-timeline" data-id="' + esc(n.id) + '" title="删除">×</button>');
-			             if (n.time) h += '<span class="card__time">' + esc(n.time) + '</span>';
-			             h += '<h3 class="card__title">' + esc(n.title) + '</h3>';
-			             if (n.desc) h += '<p class="card__desc">' + renderRichText(n.desc) + '</p >';
-			             h += '</div></article>';
-			             return h;
-			           }).join('')
-			         : '<p class="timeline__empty">时间轴还是空的。</p >';
-			   
-			       var formHTML = isAdmin
-			         ? '<div class="editor" data-form="timeline" data-list="timeline" data-world="" data-world-id=""' +
-			           (editing ? ' data-editing="true"' : '') + '>' +
-			           '<div class="field"><label>时间点</label>' +
-			           '<input type="text" data-field="time" value="' + esc(ev ? ev.time : '') + '" placeholder="名称"></div>' +
-			           '<div class="field"><label>标题</label>' +
-			           '<input type="text" data-field="title" value="' + esc(ev ? ev.title : '') + '" placeholder="标题"></div>' +
-			           '<div class="field field--full"><label>描述</label>' +
-			           '<textarea data-field="desc" rows="2" placeholder="描述">' + esc(ev ? ev.desc : '') + '</textarea>' +
-			           linkToolsHTML() + '</div>' +
-			           (editing ? '' : '<div class="field field--full"><label>插入位置</label>' +
-			             '<select data-field="pos">' + posOptions + '</select></div>') +
-			           formActionsHTML('add-timeline', '＋ 添加时间点', editing) + '</div>'
-			         : '';
-			   
-			       return formHTML + '<div class="timeline' + (items.length ? '' : ' is-empty') + '">' + listHTML + '</div>';
-			     }
-			   
-			     function simpleFormHTML(listKey, worldKey, worldId, compact) {
-			       if (!isAdmin) return '';
-			       var editing = isEditing(listKey, worldKey, worldId);
-			       var v = editing ? getEntryById(worldKey, worldId, listKey, state.editing.id) : null;
-			       var label = SIMPLE_LABELS[listKey] || '条目';
-			   
-			       return '<div class="editor' + (compact ? ' editor--compact' : '') + '"' +
-			         ' data-form="simple" data-list="' + listKey + '"' +
-			         ' data-world="' + esc(worldKey || '') + '" data-world-id="' + esc(worldId || '') + '"' +
-			         (editing ? ' data-editing="true"' : '') + '>' +
-			         '<div class="field"><label>名字</label>' +
-			         '<input type="text" data-field="name" value="' + esc(v ? v.name : '') + '" placeholder="名称"></div>' +
-			         '<div class="field"><label>成员</label>' +
-			         memberSelectHTML(worldKey, worldId, v ? v.memberId : '') + '</div>' +
-			         '<div class="field field--full"><label>简介</label>' +
-			         '<textarea data-field="intro" rows="2" placeholder="简介">' + esc(v ? v.intro : '') + '</textarea>' +
-			         linkToolsHTML() + '</div>' +
-			         formActionsHTML('add-simple', '＋ 添加' + label, editing) + '</div>';
-			     }
-			   
-			     function simplePanelHTML(listKey, label) {
-			       return simpleFormHTML(listKey, null, null, false) +
-			         '<div class="entries">' +
-			         simpleEntriesHTML(store[listKey] || [], { worldKey: null, worldId: null, listKey: listKey }) +
-			         '</div>';
-			     }
+  .tab {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font: inherit; font-size: 13px;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color .2s, background .2s, box-shadow .2s;
+  }
 
-		         function storyPanelHTML() {
-  return storyFormHTML(null, null, false) +
-    '<div class="entries entries--stories">' +
-    storyEntriesHTML(store.stories || [], { worldKey: null, worldId: null, listKey: 'stories' }) +
-    '</div>';
-}
-			   
-			     function characterFormHTML(worldKey, worldId, compact) {
-			       if (!isAdmin) return '';
-			       var editing = isEditing('characters', worldKey, worldId);
-			       var v = editing ? getEntryById(worldKey, worldId, 'characters', state.editing.id) : null;
-			       function val(k) { return esc(v ? v[k] || '' : ''); }
-			   
-			       return '<div class="editor' + (compact ? ' editor--compact' : '') + '"' +
-			         ' data-form="character" data-list="characters"' +
-			         ' data-world="' + esc(worldKey || '') + '" data-world-id="' + esc(worldId || '') + '"' +
-			         (editing ? ' data-editing="true"' : '') + '>' +
-			         '<div class="field"><label>姓名</label><input type="text" data-field="name" value="' + val('name') + '" placeholder="姓名"></div>' +
-			         '<div class="field"><label>性别</label><input type="text" data-field="gender" value="' + val('gender') + '" placeholder="性别"></div>' +
-			         '<div class="field"><label>种族</label><input type="text" data-field="race" value="' + val('race') + '" placeholder="种族"></div>' +
-			         '<div class="field"><label>职业</label><input type="text" data-field="job" value="' + val('job') + '" placeholder="职业"></div>' +
-			         '<div class="field field--full"><label>简介</label>' +
-			         '<textarea data-field="intro" rows="2" placeholder="简介">' + val('intro') + '</textarea>' + linkToolsHTML() + '</div>' +
-			         '<div class="field field--full"><label>能力</label>' +
-			         '<textarea data-field="ability" rows="2" placeholder="能力">' + val('ability') + '</textarea>' + linkToolsHTML() + '</div>' +
-			         '<div class="field field--full"><label>样貌（可选）</label>' +
-			         '<input type="file" accept="image/*" data-field="avatar">' +
-			         '<div class="avatar-preview"></div></div>' +
-			         formActionsHTML('add-character', '＋ 添加角色', editing) + '</div>';
-			     }
-			   
-			     function characterPanelHTML() {
-			       return characterFormHTML(null, null, false) +
-			         '<div class="entries">' +
-			         characterEntriesHTML(store.characters || [], { worldKey: null, worldId: null, listKey: 'characters' }) +
-			         '</div>';
-			     }
-			   
-			     function worldCardHTML(world, worldKey) {
-			       var sub = state.worldSubTab[world.id] || 'factions';
-			       var subLabel = '组织势力';
-			       SUBS.forEach(function (s) { if (s.key === sub) subLabel = s.label; });
-			   
-			       var subContent;
-if (sub === 'characters') {
-  subContent = characterEntriesHTML(world.characters || [], { worldKey: worldKey, worldId: world.id, listKey: 'characters' });
-} else if (sub === 'stories') {
-  subContent = storyEntriesHTML(world.stories || [], { worldKey: worldKey, worldId: world.id, listKey: 'stories' });
-} else {
-  subContent = simpleEntriesHTML(world[sub] || [], { worldKey: worldKey, worldId: world.id, listKey: sub });
-}
+  .tab.is-active {
+    color: #fff;
+    background: linear-gradient(135deg, var(--dot), var(--dot-2));
+    border-color: transparent;
+    box-shadow: 0 5px 14px rgba(91, 124, 250, .3);
+  }
 
-var subForm;
-if (sub === 'characters') {
-  subForm = characterFormHTML(worldKey, world.id, true);
-} else if (sub === 'stories') {
-  subForm = storyFormHTML(worldKey, world.id, true);
-} else {
-  subForm = simpleFormHTML(sub, worldKey, world.id, true);
-}
-			   
-			       var subtabs = SUBS.map(function (s) {
-			         return '<button class="subtab' + (sub === s.key ? ' is-active' : '') + '"' +
-			           ' type="button" data-action="sub-tab" data-world="' + worldKey +
-			           '" data-world-id="' + esc(world.id) + '" data-sub="' + s.key + '">' + s.label + '</button>';
-			       }).join('');
-			   
-			       return '<div class="world" data-world-id="' + esc(world.id) + '">' +
-			         '<header class="world__head">' +
-			         '<h3 class="world__name">' + esc(world.name) + '</h3>' +
-			         adminOnly('<button class="entry__del entry__del--static" type="button" data-action="del-world"' +
-			           ' data-world="' + worldKey + '" data-id="' + esc(world.id) + '" title="删除">×</button>') +
-			         '</header><nav class="subtabs">' + subtabs + '</nav>' +
-			         '<div class="subpanel">' + subForm +
-			         '<div class="entries' + (sub === 'stories' ? ' entries--stories' : '') + '">' + subContent + '</div></div></div>';
-			     }
-			   
-			     function worldPanelHTML(worldKey, label) {
-			       var items = store[worldKey] || [];
-			       var listHTML = items.length
-			         ? items.map(function (w) { return worldCardHTML(w, worldKey); }).join('')
-			         : '<p class="empty">还没有内容。</p >';
-			   
-			       var formHTML = isAdmin
-			         ? '<div class="editor" data-form="world" data-list="' + worldKey + '">' +
-			           '<div class="field field--full"><label>名称</label>' +
-			           '<input type="text" data-field="name" placeholder="名称"></div>' +
-			           '<div class="form-actions"><button class="btn" type="button" data-action="add-world" data-list="' +
-			           worldKey + '">＋ 添加' + label + '</button></div></div>'
-			         : '';
-			   
-			       return formHTML + '<div class="worlds">' + listHTML + '</div>';
-			     }
-			   
-			     /*
-				 ============================================================
-				      搜索
-				      ============================================================ */
-				   function scoreText(text, kw) {
-				     if (!text) return 0;
-				     var t = String(text).toLowerCase();
-				     if (t === kw) return 100;
-				     if (t.indexOf(kw) === 0) return 60;
-				     if (t.indexOf(kw) !== -1) return 30;
-				     return 0;
-				   }
-				 
-				   function scoreFields(fields, kw) {
-				     var best = 0;
-				     fields.forEach(function (f) {
-				       var s = scoreText(plainText(f), kw);
-				       if (s > best) best = s;
-				     });
-				     return best;
-				   }
-				 
-				   function searchAll(keyword) {
-				     var kw = keyword.trim().toLowerCase();
-				     if (!kw) return [];
-				     var results = [];
-				 
-				     store.timeline.forEach(function (t) {
-				       var s = scoreFields([t.time, t.title, t.desc], kw);
-				       if (s > 0) results.push({ type: '时间轴', title: t.title, time: t.time, desc: t.desc, score: s });
-				     });
-				 
-				     ['factions', 'races', 'settings'].forEach(function (key) {
-				       (store[key] || []).forEach(function (item) {
-				         var member = findCharacter(item.memberId);
-				         var s = scoreFields([item.name, item.intro, member ? member.name : ''], kw);
-				         if (s > 0) results.push({ type: SIMPLE_LABELS[key], title: item.name, desc: item.intro, score: s });
-				       });
-				     });
-				 
-				     store.characters.forEach(function (c) {
-				       var s = scoreFields([c.name, c.gender, c.race, c.job, c.intro, c.ability], kw);
-				       if (s > 0) results.push({ type: '角色', title: c.name, desc: c.intro, score: s });
-				     });
+  .main { max-width: 1040px; margin: 0 auto; }
 
-					   (store.stories || []).forEach(function (s) {
-  var sc = scoreFields([s.title, s.subtitle, s.body], kw);
-  if (sc > 0) results.push({ type: '故事', title: s.title, desc: s.subtitle || s.body, score: sc });
-});
-				 
-				     [['attached', '附属世界观'], ['parallel', '平行宇宙']].forEach(function (pair) {
-				       (store[pair[0]] || []).forEach(function (w) {
-				         var ws = scoreFields([w.name], kw);
-				         if (ws > 0) results.push({ type: pair[1], title: w.name, desc: '', score: ws });
-				 
-				         ['factions', 'races', 'settings'].forEach(function (sub) {
-				           (w[sub] || []).forEach(function (item) {
-				             var member = findCharacter(item.memberId);
-				             var s = scoreFields([item.name, item.intro, member ? member.name : ''], kw);
-				             if (s > 0) results.push({ type: pair[1] + ' · ' + SIMPLE_LABELS[sub], title: item.name, desc: item.intro, score: s });
-				           });
-				         });
-				 
-				         (w.characters || []).forEach(function (c) {
-				           var s = scoreFields([c.name, c.gender, c.race, c.job, c.intro, c.ability], kw);
-				           if (s > 0) results.push({ type: pair[1] + ' · 角色', title: c.name, desc: c.intro, score: s });
-				         });
-				       });
-				     });
+  .editor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(31, 36, 48, .06);
+    transition: border-color .25s;
+  }
 
-					   (w.stories || []).forEach(function (s) {
-  var sc = scoreFields([s.title, s.subtitle, s.body], kw);
-  if (sc > 0) results.push({ type: pair[1] + ' · 故事', title: s.title, desc: s.subtitle || s.body, score: sc });
-});
-				 
-				     results.sort(function (a, b) { return b.score - a.score; });
-				     return results;
-				   }
-				 
-				   function searchPanelHTML() {
-				     var kw = (state.searchKeyword || '').trim();
-				     if (!kw) return '<p class="empty">请输入关键词后搜索。</p >';
-				     var results = searchAll(kw);
-				     if (!results.length) return '<p class="empty">没有找到包含「' + esc(kw) + '」的条目。</p >';
-				 
-				     return '<p class="search-info">找到 <strong>' + results.length + '</strong> 个包含「' + esc(kw) + '」的条目</p >' +
-				       '<div class="entries">' + results.map(function (r) {
-				         var h = '<div class="entry"><span class="search-tag">' + esc(r.type) + '</span>';
-				         h += '<h4 class="entry__name">' + esc(r.title) + '</h4>';
-				         if (r.time) h += '<p class="entry__meta"><span class="entry__label">时间</span>' + esc(r.time) + '</p >';
-				         if (r.desc) h += '<p class="entry__intro">' + renderRichText(r.desc) + '</p >';
-				         return h + '</div>';
-				       }).join('') + '</div>';
-				   }
-				 
-				   /* ============================================================
-				      面板分发
-				      ============================================================ */
-				   function panelHTML(tab) {
-				     switch (tab) {
-				       case 'timeline':   return timelinePanelHTML();
-				       case 'factions':   return simplePanelHTML('factions', '组织势力');
-				       case 'races':      return simplePanelHTML('races', '种族');
-				       case 'characters': return characterPanelHTML();
-				       case 'settings':   return simplePanelHTML('settings', '详细设定');
-				       case 'stories':    return storyPanelHTML();
-                       case 'attached':   return worldPanelHTML('attached', '附属世界观');
-                       case 'parallel':   return worldPanelHTML('parallel', '平行宇宙');
-                       case 'search':     return searchPanelHTML();
-				       default:           return '';
-				     }
-				   }
-				 
-				   /* ============================================================
-				      渲染
-				      ============================================================ */
-				   var mainEl = document.getElementById('main');
-				 
-				   var TABS = [
-				     { key: 'timeline', label: '时间轴' },
-				     { key: 'factions', label: '组织势力' },
-				     { key: 'races', label: '种族' },
-				     { key: 'characters', label: '角色' },
-				     { key: 'settings', label: '详细设定' },
-				     { key: 'attached', label: '附属世界观' },
-				     { key: 'parallel', label: '平行宇宙' }
-					 { key: 'stories', label: '故事' }
-				   ];
-				 
-				   function renderTabs() {
-				     var nav = document.getElementById('mainTabs');
-				     nav.innerHTML = TABS.map(function (t) {
-				       return '<button class="tab' + (state.activeTab === t.key ? ' is-active' : '') + '"' +
-				         ' type="button" data-tab="' + t.key + '">' + t.label + '</button>';
-				     }).join('');
-				   }
-				 
-				   function render() {
-				     var scrollY = window.scrollY;
-				     renderTabs();
-				     mainEl.innerHTML = panelHTML(state.activeTab);
-				     applyEditingAvatar();
-				 
-				     if (state.highlightId) {
-				       var target = mainEl.querySelector('[data-entry-id="' + state.highlightId + '"]');
-				       if (target) {
-				         target.classList.add('is-highlight');
-				         setTimeout(function () { target.classList.remove('is-highlight'); }, 2000);
-				       }
-				       state.highlightId = null;
-				     }
-				 
-				     /* 登录状态 */
-				     var dot = document.getElementById('authDot');
-				     var text = document.getElementById('authText');
-				     var btn = document.getElementById('authBtn');
-				     if (dot) dot.className = 'auth-bar__dot' + (isAdmin ? ' is-online' : '');
-				     if (text) text.textContent = isAdmin ? '已登录 · 管理员模式' : '未登录 · 仅可查看';
-				     if (btn) btn.textContent = isAdmin ? '退出' : '登录';
-				 
-				     window.scrollTo(0, scrollY);
-				   }
-				 
-				   function applyEditingAvatar() {
-				     var editors = mainEl.querySelectorAll('.editor[data-form="character"]');
-				     for (var i = 0; i < editors.length; i++) {
-				       var ed = editors[i];
-				       if (ed.dataset.editing !== 'true') continue;
-				       var item = getEntryById(ed.dataset.world || null, ed.dataset.worldId || null,
-				         ed.dataset.list, state.editing.id);
-				       if (item && item.avatar) {
-				         ed.__pendingAvatar = item.avatar;
-				         var p = ed.querySelector('.avatar-preview');
-				         if (p) p.innerHTML = '< img src="' + item.avatar + '" alt="">';
-				       }
-				     }
-				   }
-				 
-				   /* ============================================================
-				      提交表单
-				      ============================================================ */
-				   async function submitTimeline(btn) {
-				     if (!isAdmin) return;
-				     var editor = btn.closest('.editor');
-				     var titleEl = editor.querySelector('[data-field="title"]');
-				     var title = titleEl.value.trim();
-				     if (!title) { toast('请填写标题', 'err'); titleEl.focus(); return; }
-				 
-				     var data = {
-				       time: editor.querySelector('[data-field="time"]').value.trim(),
-				       title: title,
-				       desc: editor.querySelector('[data-field="desc"]').value.trim()
-				     };
-				 
-				     if (isEditing('timeline', null, null)) {
-				       await dbUpdate(state.editing.id, data);
-				       state.editing = null;
-				       await fetchAll(); render(); toast('已保存修改');
-				       return;
-				     }
-				 
-				     var posEl = editor.querySelector('[data-field="pos"]');
-				     var index = parseInt(posEl.value, 10);
-				     if (!Number.isInteger(index)) index = store.timeline.length;
-				     index = Math.max(0, Math.min(index, store.timeline.length));
-				 
-				     /* 时间轴的顺序需要特殊处理，这里简单追加到末尾，前端按 created_at 排序 */
-				     await dbInsert('timeline', null, null, data);
-				     await fetchAll(); render(); toast('已添加');
-				   }
-				 
-				   async function submitSimple(btn) {
-				     if (!isAdmin) return;
-				     var editor = btn.closest('.editor');
-				     var listKey = editor.dataset.list;
-				     var worldKey = editor.dataset.world || null;
-				     var worldId = editor.dataset.worldId || null;
-				 
-				     var nameEl = editor.querySelector('[data-field="name"]');
-				     var name = nameEl.value.trim();
-				     if (!name) { toast('请填写名字', 'err'); nameEl.focus(); return; }
-				 
-				     var memberEl = editor.querySelector('[data-field="memberId"]');
-				     var data = {
-				       name: name,
-				       intro: (editor.querySelector('[data-field="intro"]') || {}).value || '',
-				       memberId: memberEl && memberEl.value ? memberEl.value : null
-				     };
-				     data.intro = data.intro.trim();
-				 
-				     if (isEditing(listKey, worldKey, worldId)) {
-				       await dbUpdate(state.editing.id, data);
-				       state.editing = null;
-				       await fetchAll(); render(); toast('已保存修改');
-				       return;
-				     }
-				 
-				     var moduleKey = worldKey || listKey;
-				     await dbInsert(moduleKey, worldId, worldKey ? listKey : null, data);
-				     await fetchAll(); render(); toast('已添加');
-				   }
-				 
-				   async function submitCharacter(btn) {
-				     if (!isAdmin) return;
-				     var editor = btn.closest('.editor');
-				     var listKey = editor.dataset.list || 'characters';
-				     var worldKey = editor.dataset.world || null;
-				     var worldId = editor.dataset.worldId || null;
-				 
-				     function val(f) { var el = editor.querySelector('[data-field="' + f + '"]'); return el ? el.value.trim() : ''; }
-				 
-				     var name = val('name');
-				     if (!name) { toast('请填写姓名', 'err'); editor.querySelector('[data-field="name"]').focus(); return; }
-				 
-				     var data = {
-				       name: name, gender: val('gender'), race: val('race'), job: val('job'),
-				       intro: val('intro'), ability: val('ability'),
-				       avatar: editor.__pendingAvatar || null
-				     };
-				 
-				     if (isEditing(listKey, worldKey, worldId)) {
-				       await dbUpdate(state.editing.id, data);
-				       state.editing = null;
-				       await fetchAll(); render(); toast('已保存修改');
-				       return;
-				     }
+  .editor[data-editing="true"] {
+    border-color: var(--dot);
+    box-shadow: 0 0 0 3px rgba(91, 124, 250, .12), 0 6px 20px rgba(31, 36, 48, .06);
+  }
 
-					   async function submitStory(btn) {
-  if (!isAdmin) return;
-  var editor = btn.closest('.editor');
-  var listKey = editor.dataset.list || 'stories';
-  var worldKey = editor.dataset.world || null;
-  var worldId = editor.dataset.worldId || null;
+  .editor--compact { padding: 14px; margin-bottom: 16px; background: #fafbfe; box-shadow: none; }
 
-  var titleEl = editor.querySelector('[data-field="title"]');
-  var title = titleEl.value.trim();
-  if (!title) { toast('请填写标题', 'err'); titleEl.focus(); return; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field--full { grid-column: 1 / -1; }
+  .field label { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
 
-  var subEl = editor.querySelector('[data-field="subtitle"]');
-  var bodyEl = editor.querySelector('[data-field="body"]');
-  var data = {
-    title: title,
-    subtitle: subEl ? subEl.value.trim() : '',
-    body: bodyEl ? bodyEl.value : ''
-  };
+  .field input[type="text"],
+  .field textarea,
+  .field select {
+    width: 100%;
+    padding: 10px 12px;
+    font: inherit; font-size: 16px;
+    color: var(--title);
+    background: #fbfcfe;
+    border: 1px solid #dfe3ee;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
 
-  if (isEditing(listKey, worldKey, worldId)) {
-    await dbUpdate(state.editing.id, data);
-    state.editing = null;
-    await fetchAll(); render(); toast('已保存修改');
+  .field textarea { resize: vertical; min-height: 56px; }
+
+  .field textarea.story-body {
+    min-height: 340px;
+    line-height: 1.85;
+    font-size: 15px;
+  }
+
+  .field input:focus, .field textarea:focus, .field select:focus {
+    background: #fff;
+    border-color: var(--dot);
+    box-shadow: 0 0 0 3px rgba(91, 124, 250, .15);
+  }
+
+  .field input[type="file"] {
+    width: 100%; padding: 8px 10px;
+    font: inherit; font-size: 13px;
+    color: var(--text);
+    background: #fbfcfe;
+    border: 1px dashed #d5dbeb;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .avatar-preview { margin-top: 8px; }
+  .avatar-preview img { max-width: 130px; max-height: 130px; border-radius: 10px; border: 1px solid var(--card-border); display: block; }
+
+  .field__tools { display: flex; justify-content: flex-end; margin-top: 2px; }
+
+  .link-btn {
+    padding: 4px 12px;
+    font: inherit; font-size: 12px;
+    color: var(--dot);
+    background: rgba(91, 124, 250, .10);
+    border: none; border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .form-actions { grid-column: 1 / -1; display: flex; gap: 10px; }
+
+  .btn {
+    flex: 1 1 auto;
+    padding: 12px 16px;
+    font: inherit; font-size: 15px; font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, var(--dot), var(--dot-2));
+    border: none; border-radius: 10px;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .2s;
+  }
+
+  .btn:active { transform: scale(.98); }
+
+  .btn--ghost {
+    flex: 0 0 auto;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid #dfe3ee;
+    font-weight: 500;
+  }
+
+  .timeline { position: relative; max-width: 960px; margin: 0 auto; padding: 24px 0; }
+
+  .timeline::before {
+    content: ""; position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 2px; margin-left: -1px;
+    background: var(--line); border-radius: 2px;
+  }
+
+  .timeline.is-empty::before { display: none; }
+
+  .timeline__empty, .empty {
+    margin: 0; padding: 28px 16px;
+    text-align: center; font-size: 14px;
+    color: var(--muted);
+    background: var(--card-bg);
+    border: 1px dashed #d7dcea; border-radius: 14px;
+  }
+
+  .entries > .empty { grid-column: 1 / -1; }
+
+  .timeline-item { position: relative; width: 50%; padding: 0 var(--gap) var(--vgap) 0; }
+  .timeline-item:nth-child(even) { margin-left: 50%; padding: 0 0 var(--vgap) var(--gap); }
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-item::before {
+    content: ""; position: absolute;
+    top: var(--dot-top); width: 14px; height: 14px;
+    border-radius: 50%; background: var(--dot);
+    box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px rgba(91, 124, 250, .25);
+    z-index: 2;
+  }
+
+  .timeline-item:nth-child(odd)::before  { right: -7px; }
+  .timeline-item:nth-child(even)::before { left:  -7px; }
+
+  .timeline-item::after {
+    content: ""; position: absolute;
+    top: calc(var(--dot-top) + 7px);
+    width: var(--gap); height: 1px; background: var(--line);
+  }
+
+  .timeline-item:nth-child(odd)::after  { right: 0; }
+  .timeline-item:nth-child(even)::after { left:  0; }
+
+  .card {
+    position: relative;
+    padding: 16px 70px 18px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(31, 36, 48, .06);
+    transition: transform .25s, box-shadow .25s, border-color .3s, background .6s;
+  }
+
+  .card__time {
+    display: inline-block; margin-bottom: 8px;
+    padding: 3px 10px; font-size: 12px;
+    color: var(--dot); background: rgba(91, 124, 250, .10);
+    border-radius: 999px;
+  }
+
+  .card__title { margin: 0 0 6px; font-size: 16px; line-height: 1.5; }
+  .card__desc { margin: 0; font-size: 14px; color: var(--text); white-space: pre-line; }
+
+  .entries { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+
+  .entry {
+    position: relative;
+    padding: 16px 70px 16px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(31, 36, 48, .05);
+    transition: transform .2s, box-shadow .2s, border-color .3s, background .6s;
+  }
+
+  .entry--story { grid-column: 1 / -1; }
+
+  .entry__name { margin: 0 0 6px; font-size: 16px; line-height: 1.5; }
+  .entry__intro { margin: 0; font-size: 14px; color: var(--text); white-space: pre-line; }
+  .entry__meta { margin: 8px 0 0; font-size: 13px; color: var(--text); white-space: pre-line; }
+
+  .entry__subtitle {
+    margin: 0 0 12px;
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .entry__story-body {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text);
+    white-space: pre-line;
+    line-height: 1.9;
+  }
+
+  .entry__label {
+    display: inline-block; margin-right: 6px;
+    padding: 1px 9px; font-size: 11px;
+    color: var(--muted); background: #f1f3fa;
+    border-radius: 999px; vertical-align: 1px;
+  }
+
+  .entry__head { display: flex; gap: 12px; align-items: flex-start; }
+
+  .entry__avatar {
+    width: 60px; height: 60px; object-fit: cover;
+    border-radius: 10px; border: 1px solid var(--card-border);
+    flex-shrink: 0; background: #f1f3fa;
+  }
+
+  .entry__tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0; padding: 0; list-style: none; }
+
+  .tag {
+    padding: 2px 9px; font-size: 11px;
+    color: var(--dot); background: rgba(91, 124, 250, .10);
+    border-radius: 999px;
+  }
+
+  .entry-link {
+    color: var(--dot); text-decoration: none;
+    border-bottom: 1px dashed rgba(91, 124, 250, .5);
+    cursor: pointer;
+  }
+
+  @keyframes flashHighlight {
+    0%   { background-color: var(--highlight); border-color: var(--highlight); }
+    100% { background-color: var(--card-bg); border-color: var(--card-border); }
+  }
+
+  .is-highlight { animation: flashHighlight 1.8s ease-out; }
+
+  .entry__edit, .entry__del, .card__edit, .card__del {
+    position: absolute; top: 10px;
+    width: 28px; height: 28px;
+    display: grid; place-items: center;
+    padding: 0; font-size: 16px; line-height: 1;
+    color: var(--muted); background: #f1f3fa;
+    border: none; border-radius: 50%;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity .2s, background .2s, color .2s;
+  }
+
+  .entry__edit, .card__edit { right: 42px; font-size: 13px; }
+  .entry__del,  .card__del  { right: 10px; }
+
+  .entry__edit:active, .card__edit:active { background: var(--dot); color: #fff; }
+  .entry__del:active,  .card__del:active  { background: var(--danger); color: #fff; }
+
+  .entry__del--static { position: static; opacity: 1; flex-shrink: 0; }
+
+  @media (hover: hover) {
+    .entry__edit, .entry__del, .card__edit, .card__del { opacity: 0; }
+    .entry:hover .entry__edit, .entry:hover .entry__del,
+    .card:hover .card__edit, .card:hover .card__del,
+    .entry:focus-within .entry__edit, .entry:focus-within .entry__del,
+    .card:focus-within .card__edit, .card:focus-within .card__del { opacity: 1; }
+  }
+
+  .worlds { display: flex; flex-direction: column; gap: 18px; }
+
+  .world {
+    padding: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(31, 36, 48, .06);
+  }
+
+  .world__head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 12px;
+  }
+
+  .world__name { margin: 0; font-size: 17px; }
+
+  .subtabs {
+    display: flex; flex-wrap: nowrap; gap: 5px;
+    margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--card-border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .subtabs::-webkit-scrollbar { display: none; }
+
+  .subtab {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font: inherit; font-size: 12px;
+    color: var(--text); background: #f4f5fa;
+    border: 1px solid transparent; border-radius: 999px;
+    cursor: pointer; white-space: nowrap;
+  }
+
+  .subtab.is-active {
+    color: #fff;
+    background: linear-gradient(135deg, var(--dot), var(--dot-2));
+  }
+
+  .search-info {
+    margin: 0 0 16px; padding: 12px 16px;
+    font-size: 14px; color: var(--text);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+  }
+
+  .search-info strong { color: var(--dot); }
+
+  .search-tag {
+    display: inline-block; margin-bottom: 6px;
+    padding: 2px 10px; font-size: 11px;
+    color: var(--dot); background: rgba(91, 124, 250, .10);
+    border-radius: 999px;
+  }
+
+  .modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; }
+  .modal[hidden] { display: none; }
+
+  .modal__backdrop { position: absolute; inset: 0; background: rgba(31, 36, 48, .5); }
+
+  .modal__box {
+    position: relative;
+    width: min(420px, calc(100% - 32px));
+    background: #fff; border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(31, 36, 48, .3);
+    overflow: hidden;
+  }
+
+  .modal__head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px; border-bottom: 1px solid var(--card-border);
+  }
+
+  .modal__title { margin: 0; font-size: 16px; }
+
+  .modal__close {
+    width: 30px; height: 30px; display: grid; place-items: center;
+    font-size: 20px; line-height: 1; color: var(--muted);
+    background: #f1f3fa; border: none; border-radius: 50%; cursor: pointer;
+  }
+
+  .modal__body { padding: 16px 18px 20px; overflow-y: auto; max-height: 70vh; }
+
+  .modal__body .field { margin-bottom: 12px; }
+
+  .modal__body .btn { width: 100%; }
+
+  .modal__hint { margin: 0 0 14px; font-size: 13px; color: var(--muted); }
+
+  .link-group { margin-bottom: 16px; }
+  .link-group__label { margin: 0 0 8px; font-size: 12px; color: var(--muted); }
+  .link-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+  .link-item {
+    padding: 6px 12px; font: inherit; font-size: 13px;
+    color: var(--text); background: #f4f5fa;
+    border: none; border-radius: 8px; cursor: pointer;
+  }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 28px; z-index: 300;
+    padding: 10px 20px; font-size: 13px;
+    color: #fff; background: rgba(31, 36, 48, .93);
+    border-radius: 999px; opacity: 0; pointer-events: none;
+    transform: translate(-50%, 12px);
+    transition: opacity .25s, transform .25s;
+  }
+
+  .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+  .toast.is-err { background: var(--danger); }
+
+  .loading {
+    position: fixed; inset: 0; z-index: 400;
+    display: grid; place-items: center;
+    background: rgba(245, 246, 250, .85);
+    font-size: 14px; color: var(--muted);
+  }
+
+  .loading[hidden] { display: none; }
+
+  .loading__error {
+    max-width: 420px;
+    padding: 24px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(31, 36, 48, .12);
+  }
+
+  .loading__error h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: var(--danger);
+  }
+
+  .loading__error p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 720px) {
+    :root { --gap: 22px; --vgap: 28px; --dot-top: 18px; }
+
+    body { padding: 20px 12px 90px; }
+
+    .editor { grid-template-columns: 1fr; }
+
+    .timeline::before { left: 7px; margin-left: -1px; }
+
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+      width: 100%; margin-left: 0;
+      padding: 0 0 var(--vgap) 32px;
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item:nth-child(odd)::before,
+    .timeline-item:nth-child(even)::before { left: 0; right: auto; }
+
+    .timeline-item:nth-child(odd)::after,
+    .timeline-item:nth-child(even)::after {
+      left: 14px; right: auto; width: 18px;
+    }
+
+    .card, .entry { padding-right: 66px; }
+
+    .field textarea.story-body { min-height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="loading" id="loading">正在加载…</div>
+
+<header class="hero">
+  <h1 class="hero__title">未来编年史</h1>
+  <p class="hero__sub">Epic of the Future</p>
+</header>
+
+<div class="auth-bar" id="authBar">
+  <span class="auth-bar__dot" id="authDot"></span>
+  <span id="authText">未登录 · 仅可查看</span>
+  <button class="auth-bar__btn" id="authBtn" type="button">登录</button>
+</div>
+
+<div class="searchbar">
+  <input type="text" id="searchInput" class="searchbar__input" placeholder="搜索…" enterkeyhint="search">
+  <button type="button" id="searchBtn" class="searchbar__btn">搜索</button>
+</div>
+
+<nav class="tabs" id="mainTabs"></nav>
+<main class="main" id="main"></main>
+
+<div class="modal" id="authModal" hidden>
+  <div class="modal__backdrop" data-action="close-auth-modal"></div>
+  <div class="modal__box">
+    <header class="modal__head">
+      <h3 class="modal__title">管理员登录</h3>
+      <button class="modal__close" type="button" data-action="close-auth-modal">×</button>
+    </header>
+    <div class="modal__body">
+      <p class="modal__hint">仅管理员可登录并编辑内容。</p>
+      <div class="field">
+        <label>邮箱</label>
+        <input type="text" id="authEmail" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>密码</label>
+        <input type="password" id="authPassword" placeholder="密码" autocomplete="current-password">
+      </div>
+      <button class="btn" id="authSubmit" type="button">登录</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="linkModal" hidden>
+  <div class="modal__backdrop" data-action="close-link-modal"></div>
+  <div class="modal__box">
+    <header class="modal__head">
+      <h3 class="modal__title">选择要链接的条目</h3>
+      <button class="modal__close" type="button" data-action="close-link-modal">×</button>
+    </header>
+    <div class="modal__body" id="linkModalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============ Supabase SDK ============
+     修复点：使用 @2 让 CDN 解析到最新稳定版，
+     而不是写死一个可能不存在的具体版本号。 -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     修复点：在脚本最开头检查 SDK 是否加载成功。
+     如果 SDK 加载失败（CDN 404 / 网络问题），
+     立即显示错误并终止脚本，避免整个 IIFE 崩溃导致“静默失败”。
+     ============================================================ */
+  if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+    var loadingEl = document.getElementById('loading');
+    if (loadingEl) {
+      loadingEl.innerHTML =
+        '<div class="loading__error">' +
+          '<h3>Supabase SDK 加载失败</h3>' +
+          '<p>请检查网络连接后刷新页面。<br>如果反复出现，请尝试切换网络环境。</p>' +
+        '</div>';
+    }
     return;
   }
 
-  var moduleKey = worldKey || 'stories';
-  await dbInsert(moduleKey, worldId, worldKey ? 'stories' : null, data);
-  await fetchAll(); render(); toast('已添加故事');
-}
-				 
-				     var moduleKey = worldKey || 'characters';
-				     await dbInsert(moduleKey, worldId, worldKey ? 'characters' : null, data);
-				     await fetchAll(); render(); toast('已添加角色');
-				   }
-				 
-				   async function addWorld(btn) {
-				     if (!isAdmin) return;
-				     var editor = btn.closest('.editor');
-				     var worldKey = editor.dataset.list;
-				     var nameEl = editor.querySelector('[data-field="name"]');
-				     var name = nameEl.value.trim();
-				     if (!name) { toast('请填写名称', 'err'); nameEl.focus(); return; }
-				 
-				     await dbInsert(worldKey, null, null, { name: name });
-				     await fetchAll(); render(); toast('已添加');
-				   }
-				 
-				   async function delEntry(btn) {
-				     if (!isAdmin) return;
-				     var id = btn.dataset.id;
-				     if (!window.confirm('确定要删除吗？')) return;
-				     await dbDelete(id);
-				     await fetchAll(); render(); toast('已删除');
-				   }
-				 
-				   async function delTimeline(id) {
-				     if (!isAdmin) return;
-				     if (!window.confirm('确定要删除这个时间点吗？')) return;
-				     await dbDelete(id);
-				     await fetchAll(); render(); toast('已删除');
-				   }
-				 
-				   async function delWorld(btn) {
-				     if (!isAdmin) return;
-				     var id = btn.dataset.id;
-				     if (!window.confirm('确定要删除这个世界及其全部内容吗？')) return;
-				 
-				     /* 先删除该世界下的所有子条目 */
-				     var res = await supabase.from('entries').select('id').eq('parent_id', id);
-				     if (res.data) {
-				       for (var i = 0; i < res.data.length; i++) {
-				         await dbDelete(res.data[i].id);
-				       }
-				     }
-				     await dbDelete(id);
-				     delete state.worldSubTab[id];
-				     await fetchAll(); render(); toast('已删除');
-				   }
-				   
-				     function startEdit(btn) {
-				       if (!isAdmin) return;
-				       state.editing = {
-				         worldKey: btn.dataset.world || null,
-				         worldId: btn.dataset.worldId || null,
-				         listKey: btn.dataset.list,
-				         id: btn.dataset.id
-				       };
-				       render();
-				       setTimeout(function () {
-				         var editor = mainEl.querySelector('.editor[data-editing="true"]');
-				         if (editor) {
-				           editor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-				           var first = editor.querySelector('input[type="text"], textarea');
-				           if (first) first.focus();
-				         }
-				       }, 80);
-				     }
-				   
-				     function cancelEdit() { state.editing = null; render(); toast('已取消'); }
-				   
-				     function switchSubTab(btn) {
-				       var worldKey = btn.dataset.world;
-				       var worldId = btn.dataset.worldId;
-				       var sub = btn.dataset.sub;
-				       state.worldSubTab[worldId] = sub;
-				   
-				       var worlds = store[worldKey] || [];
-				       var world = null;
-				       for (var i = 0; i < worlds.length; i++) {
-				         if (worlds[i].id === worldId) { world = worlds[i]; break; }
-				       }
-				       var card = btn.closest('.world');
-				       if (!world || !card) { render(); return; }
-				       card.outerHTML = worldCardHTML(world, worldKey);
-				     }
-				   
-				     /* ============================================================
-				        链接选择器
-				        ============================================================ */
-				     function collectLinkTargets() {
-				       var groups = [];
-				       if (store.timeline.length) {
-				         groups.push({ label: '时间轴', items: store.timeline.map(function (x) { return { id: x.id, name: x.title }; }) });
-				       }
-				       ['factions', 'races', 'characters', 'settings', 'stories'].forEach(function (key) {
-  var list = store[key] || [];
-  if (list.length) {
-    groups.push({
-      label: SIMPLE_LABELS[key],
-      items: list.map(function (x) { return { id: x.id, name: x.title || x.name }; })
+  /* ============================================================
+     ⚠️ 你的 Supabase 配置
+     ============================================================ */
+  var SUPABASE_URL = 'https://ghostzrlzgqnkdnestoe.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_BWQhq7wJc-uCm6S7ynGbkQ_LOsx87Lx';
+
+  /* ============================================================
+     常量
+     ============================================================ */
+  var SUBS = [
+    { key: 'factions',   label: '组织势力' },
+    { key: 'races',      label: '种族' },
+    { key: 'characters', label: '角色' },
+    { key: 'settings',   label: '详细设定' },
+    { key: 'stories',    label: '故事' }
+  ];
+
+  var SIMPLE_LABELS = {
+    factions: '组织势力', races: '种族',
+    settings: '详细设定', characters: '角色',
+    stories: '故事'
+  };
+
+  var TABS = [
+    { key: 'timeline',   label: '时间轴' },
+    { key: 'factions',   label: '组织势力' },
+    { key: 'races',      label: '种族' },
+    { key: 'characters', label: '角色' },
+    { key: 'settings',   label: '详细设定' },
+    { key: 'stories',    label: '故事' },
+    { key: 'attached',   label: '附属世界观' },
+    { key: 'parallel',   label: '平行宇宙' }
+  ];
+
+  var LINK_RE = /\[\[link:([^|\]]+)\|([^\]]*)\]\]/g;
+
+  /* ============================================================
+     Supabase 客户端
+     ============================================================ */
+  var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  /* ============================================================
+     应用状态
+     ============================================================ */
+  var isAdmin = false;
+
+  var store = {
+    timeline: [], factions: [], races: [], characters: [],
+    settings: [], stories: [], attached: [], parallel: []
+  };
+
+  var state = {
+    activeTab: 'timeline',
+    worldSubTab: {},
+    searchKeyword: '',
+    editing: null,
+    highlightId: null
+  };
+
+  var linkPickerTarget = null;
+
+  /* ============================================================
+     小工具
+     ============================================================ */
+  function uid() {
+    return crypto.randomUUID ? crypto.randomUUID()
+      : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          var r = Math.random() * 16 | 0;
+          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+  }
+
+  var ESC_MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return ESC_MAP[c]; }); }
+
+  function renderRichText(text) {
+    if (!text) return '';
+    var str = String(text), result = '', last = 0, match;
+    LINK_RE.lastIndex = 0;
+    while ((match = LINK_RE.exec(str)) !== null) {
+      result += esc(str.slice(last, match.index));
+      result += '<a class="entry-link" href="javascript:void(0)" data-link-id="' +
+        esc(match[1]) + '">' + esc(match[2] || '链接') + '</a>';
+      last = match.index + match[0].length;
+    }
+    result += esc(str.slice(last));
+    return result;
+  }
+
+  function plainText(t) { return String(t == null ? '' : t).replace(LINK_RE, '$2'); }
+
+  var toastTimer = null;
+  function toast(msg, type) {
+    var el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = 'toast is-visible' + (type === 'err' ? ' is-err' : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.className = 'toast'; }, 2400);
+  }
+
+  function fileToDataUrl(file) {
+    return new Promise(function (res, rej) {
+      var r = new FileReader();
+      r.onload = function () { res(r.result); };
+      r.onerror = rej;
+      r.readAsDataURL(file);
     });
   }
-});
-				       [['attached', '附属世界观'], ['parallel', '平行宇宙']].forEach(function (pair) {
-				         (store[pair[0]] || []).forEach(function (w) {
-				           SUBS.forEach(function (sub) {
-				             var subList = w[sub.key] || [];
-				             if (subList.length) {
-				               groups.push({
-				                 label: pair[1] + ' · ' + w.name + ' · ' + sub.label,
-				                 items: subList.map(function (x) { return { id: x.id, name: x.title || x.name }; })
-				               });
-				             }
-				           });
-				         });
-				       });
-				       return groups;
-				     }
-				   
-				     function openLinkPicker(btn) {
-				       var field = btn.closest('.field');
-				       if (!field) return;
-				       var textarea = field.querySelector('textarea');
-				       if (!textarea) return;
-				       linkPickerTarget = textarea;
-				   
-				       var groups = collectLinkTargets();
-				       var body = document.getElementById('linkModalBody');
-				       if (!groups.length) {
-				         body.innerHTML = '<p class="modal__hint">目前没有可链接的条目。</p >';
-				       } else {
-				         var html = '<p class="modal__hint">点击一个条目，在当前光标位置插入链接。</p >';
-				         groups.forEach(function (g) {
-				           html += '<div class="link-group"><h4 class="link-group__label">' + esc(g.label) + '</h4><ul class="link-list">';
-				           g.items.forEach(function (it) {
-				             html += '<li><button type="button" class="link-item" data-link-id="' + esc(it.id) +
-				               '" data-link-name="' + esc(it.name) + '">' + esc(it.name) + '</button></li>';
-				           });
-				           html += '</ul></div>';
-				         });
-				         body.innerHTML = html;
-				       }
-				       document.getElementById('linkModal').hidden = false;
-				     }
-				   
-				     function closeLinkModal() {
-				       document.getElementById('linkModal').hidden = true;
-				       linkPickerTarget = null;
-				     }
-				   
-				     function insertAtCursor(textarea, text) {
-				       var start = textarea.selectionStart || 0;
-				       var end = textarea.selectionEnd || 0;
-				       var val = textarea.value;
-				       textarea.value = val.slice(0, start) + text + val.slice(end);
-				       var pos = start + text.length;
-				       textarea.setSelectionRange(pos, pos);
-				       textarea.focus();
-				     }
-				   
-				     function pickLinkTarget(id, name) {
-				       if (!linkPickerTarget) return;
-				       var safeName = String(name || '链接').replace(/[|\]]/g, '');
-				       insertAtCursor(linkPickerTarget, '[[link:' + id + '|' + safeName + ']]');
-				       closeLinkModal();
-				       toast('已插入链接');
-				     }
-				   
-				     /* ============================================================
-				        跳转到链接目标
-				        ============================================================ */
-				     function findEntryLocation(id) {
-				       for (var i = 0; i < store.timeline.length; i++) {
-				         if (store.timeline[i].id === id) return { tab: 'timeline' };
-				       }
-				       var topKeys = ['factions', 'races', 'characters', 'settings' , 'stories'];
-				       for (var k = 0; k < topKeys.length; k++) {
-				         var list = store[topKeys[k]] || [];
-				         for (var j = 0; j < list.length; j++) {
-				           if (list[j].id === id) return { tab: topKeys[k] };
-				         }
-				       }
-				       var worldKeys = ['attached', 'parallel'];
-				       for (var w = 0; w < worldKeys.length; w++) {
-				         var worlds = store[worldKeys[w]] || [];
-				         for (var wi = 0; wi < worlds.length; wi++) {
-				           var world = worlds[wi];
-				           for (var s = 0; s < SUBS.length; s++) {
-				             var subKey = SUBS[s].key;
-				             var subList = world[subKey] || [];
-				             for (var si = 0; si < subList.length; si++) {
-				               if (subList[si].id === id) return { tab: worldKeys[w], worldId: world.id, subKey: subKey };
-				             }
-				           }
-				         }
-				       }
-				       return null;
-				     }
-				   
-				     function jumpToEntry(id) {
-				       var loc = findEntryLocation(id);
-				       if (!loc) { toast('找不到该条目', 'err'); return; }
-				       state.activeTab = loc.tab;
-				       if (loc.worldId && loc.subKey) state.worldSubTab[loc.worldId] = loc.subKey;
-				       state.highlightId = id;
-				       render();
-				       setTimeout(function () {
-				         var target = mainEl.querySelector('[data-entry-id="' + id + '"]');
-				         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-				       }, 80);
-				     }
-				   
-				     /* ============================================================
-				        事件委托
-				        ============================================================ */
-				     mainEl.addEventListener('click', function (e) {
-				       var link = e.target.closest('a.entry-link');
-				       if (link && mainEl.contains(link)) {
-				         e.preventDefault();
-				         if (link.dataset.linkId) jumpToEntry(link.dataset.linkId);
-				         return;
-				       }
-				   
-				       var btn = e.target.closest('[data-action]');
-				       if (!btn || !mainEl.contains(btn)) return;
-				   
-				       switch (btn.dataset.action) {
-				         case 'add-timeline':  submitTimeline(btn); break;
-				         case 'del-timeline':  delTimeline(btn.dataset.id); break;
-				         case 'add-simple':    submitSimple(btn); break;
-				         case 'add-character': submitCharacter(btn); break;
-						 case 'add-story':     submitStory(btn); break;
-				         case 'add-world':     addWorld(btn); break;
-				         case 'del-entry':     delEntry(btn); break;
-				         case 'del-world':     delWorld(btn); break;
-				         case 'edit-entry':    startEdit(btn); break;
-				         case 'cancel-edit':   cancelEdit(); break;
-				         case 'sub-tab':       switchSubTab(btn); break;
-				         case 'open-link-picker': openLinkPicker(btn); break;
-				       }
-				     });
-				   
-				     mainEl.addEventListener('change', function (e) {
-				       var input = e.target.closest('input[type="file"][data-field="avatar"]');
-				       if (!input) return;
-				       var editor = input.closest('.editor');
-				       var preview = editor.querySelector('.avatar-preview');
-				       var file = input.files && input.files[0];
-				   
-				       if (!file) { editor.__pendingAvatar = null; if (preview) preview.innerHTML = ''; return; }
-				   
-				       fileToDataUrl(file).then(function (raw) { return shrinkImage(raw, 320); })
-				         .then(function (small) {
-				           editor.__pendingAvatar = small;
-				           if (preview) preview.innerHTML = '< img src="' + small + '" alt="">';
-				         }).catch(function () { toast('图片读取失败', 'err'); });
-				     });
-				   
-				     mainEl.addEventListener('keydown', function (e) {
-				       if (!(e.ctrlKey || e.metaKey) || e.key !== 'Enter') return;
-				       var editor = e.target.closest('.editor');
-				       if (!editor) return;
-				       var btn = editor.querySelector('[data-action^="add-"]');
-				       if (btn) btn.click();
-				     });
-					 
-					   /* 主标签切换 */
-					   document.getElementById('mainTabs').addEventListener('click', function (e) {
-					     var tab = e.target.closest('[data-tab]');
-					     if (!tab) return;
-					     var key = tab.dataset.tab;
-					     if (state.activeTab === key) return;
-					     state.editing = null;
-					     state.activeTab = key;
-					     render();
-					   });
-					 
-					   /* 链接模态框 */
-					   document.getElementById('linkModal').addEventListener('click', function (e) {
-					     if (e.target.closest('[data-action="close-link-modal"]')) { closeLinkModal(); return; }
-					     var item = e.target.closest('.link-item');
-					     if (item) pickLinkTarget(item.dataset.linkId, item.dataset.linkName);
-					   });
-					 
-					   /* 搜索 */
-					   var searchInput = document.getElementById('searchInput');
-					   document.getElementById('searchBtn').addEventListener('click', function () {
-					     var kw = (searchInput.value || '').trim();
-					     if (!kw) { toast('请输入搜索内容', 'err'); searchInput.focus(); return; }
-					     state.editing = null;
-					     state.searchKeyword = kw;
-					     state.activeTab = 'search';
-					     render();
-					   });
-					   searchInput.addEventListener('keydown', function (e) {
-					     if (e.key === 'Enter') { e.preventDefault(); document.getElementById('searchBtn').click(); }
-					   });
-					 
-					   /* ============================================================
-					      登录 / 退出
-					      ============================================================ */
-					   document.getElementById('authBtn').addEventListener('click', async function () {
-					     if (isAdmin) {
-					       /* 退出 */
-					       await supabase.auth.signOut();
-					       isAdmin = false;
-					       state.editing = null;
-					       render();
-					       toast('已退出登录');
-					     } else {
-					       /* 打开登录框 */
-					       document.getElementById('authModal').hidden = false;
-					       document.getElementById('authEmail').focus();
-					     }
-					   });
-					 
-					   document.getElementById('authSubmit').addEventListener('click', async function () {
-					     var email = document.getElementById('authEmail').value.trim();
-					     var password = document.getElementById('authPassword').value;
-					     if (!email || !password) { toast('请填写邮箱和密码', 'err'); return; }
-					 
-					     var res = await supabase.auth.signInWithPassword({ email: email, password: password });
-					     if (res.error) {
-					       toast('登录失败：' + res.error.message, 'err');
-					       return;
-					     }
-					 
-					     isAdmin = true;
-					     document.getElementById('authModal').hidden = true;
-					     document.getElementById('authPassword').value = '';
-					     await fetchAll();
-					     render();
-					     toast('登录成功，管理员模式已开启');
-					   });
-					 
-					   document.getElementById('authModal').addEventListener('click', function (e) {
-					     if (e.target.closest('[data-action="close-auth-modal"]')) {
-					       document.getElementById('authModal').hidden = true;
-					     }
-					   });
-					 
-					   /* ESC 关闭模态框 */
-					   document.addEventListener('keydown', function (e) {
-					     if (e.key === 'Escape') {
-					       var am = document.getElementById('authModal');
-					       var lm = document.getElementById('linkModal');
-					       if (am && !am.hidden) am.hidden = true;
-					       if (lm && !lm.hidden) closeLinkModal();
-					     }
-					   });
-					 
-					   /* ============================================================
-					      初始化
-					      ============================================================ */
-					   async function init() {
-					     /* 检查是否已有登录会话 */
-					     var session = await supabase.auth.getSession();
-					     if (session.data && session.data.session) {
-					       isAdmin = true;
-					     }
-					 
-					     await fetchAll();
-					     document.getElementById('loading').hidden = true;
-					     render();
-					   }
-					 
-					   /* 监听登录状态变化（比如 token 过期） */
-					   supabase.auth.onAuthStateChange(function (event, session) {
-					     var wasAdmin = isAdmin;
-					     isAdmin = !!session;
-					     if (wasAdmin !== isAdmin) {
-					       state.editing = null;
-					       render();
-					     }
-					   });
-					 
-					   init();
-					 
-					 })();
-					 </script>
-					 </body>
-					 </html>
+
+  function shrinkImage(dataUrl, maxSize) {
+    return new Promise(function (resolve) {
+      var img = new Image();
+      img.onload = function () {
+        var w = img.width, h = img.height;
+        if (w <= maxSize && h <= maxSize) { resolve(dataUrl); return; }
+        var ratio = Math.min(maxSize / w, maxSize / h);
+        w = Math.round(w * ratio); h = Math.round(h * ratio);
+        var c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(c.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = function () { resolve(dataUrl); };
+      img.src = dataUrl;
+    });
+  }
+
+  /* ============================================================
+     数据库操作
+     ============================================================ */
+  async function fetchAll() {
+    var res = await supabase.from('entries').select('*').order('created_at', { ascending: true });
+    if (res.error) {
+      console.error('加载失败：', res.error);
+      throw new Error(res.error.message || '加载失败');
+    }
+
+    store.timeline = []; store.factions = []; store.races = [];
+    store.characters = []; store.settings = []; store.stories = [];
+    store.attached = []; store.parallel = [];
+
+    var rows = res.data || [];
+    var worldMap = {};
+
+    rows.forEach(function (row) {
+      if ((row.module === 'attached' || row.module === 'parallel') && !row.parent_id) {
+        var world = Object.assign({ id: row.id }, row.data);
+        world.factions = []; world.races = [];
+        world.characters = []; world.settings = []; world.stories = [];
+        store[row.module].push(world);
+        worldMap[row.id] = world;
+      }
+    });
+
+    rows.forEach(function (row) {
+      var item = Object.assign({ id: row.id }, row.data);
+
+      if (row.parent_id && row.sub_module && worldMap[row.parent_id]) {
+        var world = worldMap[row.parent_id];
+        if (!world[row.sub_module]) world[row.sub_module] = [];
+        world[row.sub_module].push(item);
+      } else if (row.module === 'timeline') {
+        store.timeline.push(item);
+      } else if (row.module === 'factions' || row.module === 'races' ||
+                 row.module === 'characters' || row.module === 'settings' ||
+                 row.module === 'stories') {
+        store[row.module].push(item);
+      }
+    });
+  }
+
+  async function dbInsert(module, parentId, subModule, data) {
+    var res = await supabase.from('entries').insert({
+      module: module, parent_id: parentId || null,
+      sub_module: subModule || null, data: data
+    }).select().single();
+    if (res.error) { console.error('插入失败：', res.error); toast('保存失败：' + res.error.message, 'err'); return null; }
+    return res.data;
+  }
+
+  async function dbUpdate(id, data) {
+    var res = await supabase.from('entries')
+      .update({ data: data, updated_at: new Date().toISOString() })
+      .eq('id', id);
+    if (res.error) { console.error('更新失败：', res.error); toast('更新失败：' + res.error.message, 'err'); return false; }
+    return true;
+  }
+
+  async function dbDelete(id) {
+    var res = await supabase.from('entries').delete().eq('id', id);
+    if (res.error) { console.error('删除失败：', res.error); toast('删除失败：' + res.error.message, 'err'); return false; }
+    return true;
+  }
+
+  /* ============================================================
+     数据访问
+     ============================================================ */
+  function getList(worldKey, worldId, listKey) {
+    if (!worldKey) return store[listKey] || null;
+    var worlds = store[worldKey] || [];
+    for (var i = 0; i < worlds.length; i++) {
+      if (worlds[i].id === worldId) {
+        if (!Array.isArray(worlds[i][listKey])) worlds[i][listKey] = [];
+        return worlds[i][listKey];
+      }
+    }
+    return null;
+  }
+
+  function getEntryById(worldKey, worldId, listKey, id) {
+    var list = getList(worldKey, worldId, listKey);
+    if (!list) return null;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  function findCharacter(id) {
+    if (!id) return null;
+    for (var i = 0; i < store.characters.length; i++) {
+      if (store.characters[i].id === id) return store.characters[i];
+    }
+    return null;
+  }
+
+  function characterPool(worldKey, worldId) {
+    var pool = store.characters.slice();
+    if (worldKey && worldId) {
+      var worlds = store[worldKey] || [];
+      for (var i = 0; i < worlds.length; i++) {
+        if (worlds[i].id === worldId) {
+          if (Array.isArray(worlds[i].characters)) pool = pool.concat(worlds[i].characters);
+          break;
+        }
+      }
+    }
+    return pool;
+  }
+
+  function isEditing(listKey, worldKey, worldId) {
+    var e = state.editing;
+    if (!e) return false;
+    return e.listKey === listKey &&
+           (e.worldKey || '') === (worldKey || '') &&
+           (e.worldId || '') === (worldId || '');
+  }
+
+  function adminOnly(html) { return isAdmin ? html : ''; }
+
+  function entryName(item) {
+    return item.name || item.title || '未命名';
+  }
+
+  /* ============================================================
+     HTML 片段
+     ============================================================ */
+  function memberSelectHTML(worldKey, worldId, selectedId) {
+    var pool = characterPool(worldKey, worldId);
+    var html = '<select data-field="memberId"><option value="">无</option>';
+    for (var i = 0; i < pool.length; i++) {
+      html += '<option value="' + esc(pool[i].id) + '"' +
+        (pool[i].id === selectedId ? ' selected' : '') + '>' + esc(pool[i].name) + '</option>';
+    }
+    return html + '</select>';
+  }
+
+  function linkToolsHTML() {
+    return adminOnly('<div class="field__tools">' +
+      '<button type="button" class="link-btn" data-action="open-link-picker">🔗 插入链接</button></div>');
+  }
+
+  function formActionsHTML(submitAction, submitText, editing) {
+    if (!isAdmin) return '';
+    var html = '<div class="form-actions">';
+    html += '<button class="btn" type="button" data-action="' + submitAction + '">' +
+      (editing ? '保存修改' : submitText) + '</button>';
+    if (editing) html += '<button class="btn btn--ghost" type="button" data-action="cancel-edit">取消</button>';
+    return html + '</div>';
+  }
+
+  function simpleEntriesHTML(items, ctx) {
+    if (!items || !items.length) return '<p class="empty">还没有内容。</p>';
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var member = findCharacter(item.memberId);
+      html += '<div class="entry" data-entry-id="' + esc(item.id) + '">';
+      html += adminOnly(
+        '<button class="entry__edit" type="button" data-action="edit-entry"' +
+        ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
+        '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(item.id) + '" title="编辑">✎</button>' +
+        '<button class="entry__del" type="button" data-action="del-entry"' +
+        ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
+        '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(item.id) + '" title="删除">×</button>');
+      html += '<h4 class="entry__name">' + esc(item.name) + '</h4>';
+      if (item.intro) html += '<p class="entry__intro">' + renderRichText(item.intro) + '</p>';
+      if (member) html += '<p class="entry__meta"><span class="entry__label">成员</span>' + esc(member.name) + '</p>';
+      html += '</div>';
+    }
+    return html;
+  }
+
+  function characterEntriesHTML(items, ctx) {
+    if (!items || !items.length) return '<p class="empty">还没有角色。</p>';
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var c = items[i];
+      var tags = '';
+      [c.gender, c.race, c.job].forEach(function (t) {
+        if (t) tags += '<li class="tag">' + esc(t) + '</li>';
+      });
+      html += '<div class="entry" data-entry-id="' + esc(c.id) + '">';
+      html += adminOnly(
+        '<button class="entry__edit" type="button" data-action="edit-entry"' +
+        ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
+        '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(c.id) + '" title="编辑">✎</button>' +
+        '<button class="entry__del" type="button" data-action="del-entry"' +
+        ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
+        '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(c.id) + '" title="删除">×</button>');
+      html += '<div class="entry__head">';
+      if (c.avatar) html += '<img class="entry__avatar" src="' + esc(c.avatar) + '" alt="">';
+      html += '<div><h4 class="entry__name">' + esc(c.name) + '</h4>';
+      if (tags) html += '<ul class="entry__tags">' + tags + '</ul>';
+      html += '</div></div>';
+      if (c.intro) html += '<p class="entry__intro" style="margin-top:10px">' + renderRichText(c.intro) + '</p>';
+      if (c.ability) html += '<p class="entry__meta"><span class="entry__label">能力</span>' + renderRichText(c.ability) + '</p>';
+      html += '</div>';
+    }
+    return html;
+  }
+
+  function storyEntriesHTML(items, ctx) {
+    if (!items || !items.length) return '<p class="empty">还没有故事。</p>';
+    var html = '';
+    for (var i = 0; i < items.length; i++) {
+      var s = items[i];
+      html += '<div class="entry entry--story" data-entry-id="' + esc(s.id) + '">';
+      html += adminOnly(
+        '<button class="entry__edit" type="button" data-action="edit-entry"' +
+        ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
+        '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(s.id) + '" title="编辑">✎</button>' +
+        '<button class="entry__del" type="button" data-action="del-entry"' +
+        ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
+        '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(s.id) + '" title="删除">×</button>');
+      html += '<h4 class="entry__name">' + esc(s.title || '无题') + '</h4>';
+      if (s.subtitle) {
+        html += '<p class="entry__subtitle">' + esc(s.subtitle) + '</p>';
+      }
+      if (s.body) {
+        html += '<div class="entry__story-body">' + renderRichText(s.body) + '</div>';
+      }
+      html += '</div>';
+    }
+    return html;
+  }
+
+  /* ============================================================
+     各面板
+     ============================================================ */
+  function timelinePanelHTML() {
+    var items = store.timeline;
+    var editing = isEditing('timeline', null, null);
+    var ev = editing ? getEntryById(null, null, 'timeline', state.editing.id) : null;
+
+    var posOptions = '<option value="0">插入到最前面</option>';
+    items.forEach(function (n, i) {
+      posOptions += '<option value="' + (i + 1) + '">插入到「' + esc(n.title) + '」之后</option>';
+    });
+
+    var listHTML = items.length
+      ? items.map(function (n) {
+          var h = '<article class="timeline-item"><div class="card" data-entry-id="' + esc(n.id) + '">';
+          h += adminOnly(
+            '<button class="card__edit" type="button" data-action="edit-entry"' +
+            ' data-world="" data-world-id="" data-list="timeline" data-id="' + esc(n.id) + '" title="编辑">✎</button>' +
+            '<button class="card__del" type="button" data-action="del-timeline" data-id="' + esc(n.id) + '" title="删除">×</button>');
+          if (n.time) h += '<span class="card__time">' + esc(n.time) + '</span>';
+          h += '<h3 class="card__title">' + esc(n.title) + '</h3>';
+          if (n.desc) h += '<p class="card__desc">' + renderRichText(n.desc) + '</p>';
+          h += '</div></article>';
+          return h;
+        }).join('')
+      : '<p class="timeline__empty">时间轴还是空的。</p>';
+
+    var formHTML = isAdmin
+      ? '<div class="editor" data-form="timeline" data-list="timeline" data-world="" data-world-id=""' +
+        (editing ? ' data-editing="true"' : '') + '>' +
+        '<div class="field"><label>时间点</label>' +
+        '<input type="text" data-field="time" value="' + esc(ev ? ev.time : '') + '" placeholder="时间点"></div>' +
+        '<div class="field"><label>标题</label>' +
+        '<input type="text" data-field="title" value="' + esc(ev ? ev.title : '') + '" placeholder="标题"></div>' +
+        '<div class="field field--full"><label>描述</label>' +
+        '<textarea data-field="desc" rows="2" placeholder="描述">' + esc(ev ? ev.desc : '') + '</textarea>' +
+        linkToolsHTML() + '</div>' +
+        (editing ? '' : '<div class="field field--full"><label>插入位置</label>' +
+          '<select data-field="pos">' + posOptions + '</select></div>') +
+        formActionsHTML('add-timeline', '＋ 添加时间点', editing) + '</div>'
+      : '';
+
+    return formHTML + '<div class="timeline' + (items.length ? '' : ' is-empty') + '">' + listHTML + '</div>';
+  }
+
+  function simpleFormHTML(listKey, worldKey, worldId, compact) {
+    if (!isAdmin) return '';
+    var editing = isEditing(listKey, worldKey, worldId);
+    var v = editing ? getEntryById(worldKey, worldId, listKey, state.editing.id) : null;
+    var label = SIMPLE_LABELS[listKey] || '条目';
+
+    return '<div class="editor' + (compact ? ' editor--compact' : '') + '"' +
+      ' data-form="simple" data-list="' + listKey + '"' +
+      ' data-world="' + esc(worldKey || '') + '" data-world-id="' + esc(worldId || '') + '"' +
+      (editing ? ' data-editing="true"' : '') + '>' +
+      '<div class="field"><label>名字</label>' +
+      '<input type="text" data-field="name" value="' + esc(v ? v.name : '') + '" placeholder="名称"></div>' +
+      '<div class="field"><label>成员</label>' +
+      memberSelectHTML(worldKey, worldId, v ? v.memberId : '') + '</div>' +
+      '<div class="field field--full"><label>简介</label>' +
+      '<textarea data-field="intro" rows="2" placeholder="简介">' + esc(v ? v.intro : '') + '</textarea>' +
+      linkToolsHTML() + '</div>' +
+      formActionsHTML('add-simple', '＋ 添加' + label, editing) + '</div>';
+  }
+
+  function simplePanelHTML(listKey, label) {
+    return simpleFormHTML(listKey, null, null, false) +
+      '<div class="entries">' +
+      simpleEntriesHTML(store[listKey] || [], { worldKey: null, worldId: null, listKey: listKey }) +
+      '</div>';
+  }
+
+  function characterFormHTML(worldKey, worldId, compact) {
+    if (!isAdmin) return '';
+    var editing = isEditing('characters', worldKey, worldId);
+    var v = editing ? getEntryById(worldKey, worldId, 'characters', state.editing.id) : null;
+    function val(k) { return esc(v ? v[k] || '' : ''); }
+
+    return '<div class="editor' + (compact ? ' editor--compact' : '') + '"' +
+      ' data-form="character" data-list="characters"' +
+      ' data-world="' + esc(worldKey || '') + '" data-world-id="' + esc(worldId || '') + '"' +
+      (editing ? ' data-editing="true"' : '') + '>' +
+      '<div class="field"><label>姓名</label><input type="text" data-field="name" value="' + val('name') + '" placeholder="姓名"></div>' +
+      '<div class="field"><label>性别</label><input type="text" data-field="gender" value="' + val('gender') + '" placeholder="性别"></div>' +
+      '<div class="field"><label>种族</label><input type="text" data-field="race" value="' + val('race') + '" placeholder="种族"></div>' +
+      '<div class="field"><label>职业</label><input type="text" data-field="job" value="' + val('job') + '" placeholder="职业"></div>' +
+      '<div class="field field--full"><label>简介</label>' +
+      '<textarea data-field="intro" rows="2" placeholder="简介">' + val('intro') + '</textarea>' + linkToolsHTML() + '</div>' +
+      '<div class="field field--full"><label>能力</label>' +
+      '<textarea data-field="ability" rows="2" placeholder="能力">' + val('ability') + '</textarea>' + linkToolsHTML() + '</div>' +
+      '<div class="field field--full"><label>样貌（可选）</label>' +
+      '<input type="file" accept="image/*" data-field="avatar">' +
+      '<div class="avatar-preview"></div></div>' +
+      formActionsHTML('add-character', '＋ 添加角色', editing) + '</div>';
+  }
+
+  function characterPanelHTML() {
+    return characterFormHTML(null, null, false) +
+      '<div class="entries">' +
+      characterEntriesHTML(store.characters || [], { worldKey: null, worldId: null, listKey: 'characters' }) +
+      '</div>';
+  }
+
+  function storyFormHTML(worldKey, worldId, compact) {
+    if (!isAdmin) return '';
+    var editing = isEditing('stories', worldKey, worldId);
+    var v = editing ? getEntryById(worldKey, worldId, 'stories', state.editing.id) : null;
+
+    return '<div class="editor' + (compact ? ' editor--compact' : '') + '"' +
+      ' data-form="story" data-list="stories"' +
+      ' data-world="' + esc(worldKey || '') + '" data-world-id="' + esc(worldId || '') + '"' +
+      (editing ? ' data-editing="true"' : '') + '>' +
+      '<div class="field"><label>标题</label>' +
+      '<input type="text" data-field="title" value="' + esc(v ? v.title : '') + '" placeholder="故事标题"></div>' +
+      '<div class="field"><label>副题（可选）</label>' +
+      '<input type="text" data-field="subtitle" value="' + esc(v ? v.subtitle : '') + '" placeholder="副题"></div>' +
+      '<div class="field field--full"><label>正文</label>' +
+      '<textarea data-field="body" class="story-body" placeholder="在这里写下故事正文，可以输入数千字以上">' +
+      esc(v ? v.body : '') + '</textarea>' +
+      linkToolsHTML() + '</div>' +
+      formActionsHTML('add-story', '＋ 添加故事', editing) + '</div>';
+  }
+
+  function storyPanelHTML() {
+    return storyFormHTML(null, null, false) +
+      '<div class="entries">' +
+      storyEntriesHTML(store.stories || [], { worldKey: null, worldId: null, listKey: 'stories' }) +
+      '</div>';
+  }
+
+  function worldCardHTML(world, worldKey) {
+    var sub = state.worldSubTab[world.id] || 'factions';
+
+    var subContent;
+    var subForm;
+    if (sub === 'characters') {
+      subContent = characterEntriesHTML(world.characters || [], { worldKey: worldKey, worldId: world.id, listKey: 'characters' });
+      subForm = characterFormHTML(worldKey, world.id, true);
+    } else if (sub === 'stories') {
+      subContent = storyEntriesHTML(world.stories || [], { worldKey: worldKey, worldId: world.id, listKey: 'stories' });
+      subForm = storyFormHTML(worldKey, world.id, true);
+    } else {
+      subContent = simpleEntriesHTML(world[sub] || [], { worldKey: worldKey, worldId: world.id, listKey: sub });
+      subForm = simpleFormHTML(sub, worldKey, world.id, true);
+    }
+
+    var subtabs = SUBS.map(function (s) {
+      return '<button class="subtab' + (sub === s.key ? ' is-active' : '') + '"' +
+        ' type="button" data-action="sub-tab" data-world="' + worldKey +
+        '" data-world-id="' + esc(world.id) + '" data-sub="' + s.key + '">' + s.label + '</button>';
+    }).join('');
+
+    return '<div class="world" data-world-id="' + esc(world.id) + '">' +
+      '<header class="world__head">' +
+      '<h3 class="world__name">' + esc(world.name) + '</h3>' +
+      adminOnly('<button class="entry__del entry__del--static" type="button" data-action="del-world"' +
+        ' data-world="' + worldKey + '" data-id="' + esc(world.id) + '" title="删除">×</button>') +
+      '</header><nav class="subtabs">' + subtabs + '</nav>' +
+      '<div class="subpanel">' + subForm +
+      '<div class="entries">' + subContent + '</div></div></div>';
+  }
+
+  function worldPanelHTML(worldKey, label) {
+    var items = store[worldKey] || [];
+    var listHTML = items.length
+      ? items.map(function (w) { return worldCardHTML(w, worldKey); }).join('')
+      : '<p class="empty">还没有内容。</p>';
+
+    var formHTML = isAdmin
+      ? '<div class="editor" data-form="world" data-list="' + worldKey + '">' +
+        '<div class="field field--full"><label>名称</label>' +
+        '<input type="text" data-field="name" placeholder="名称"></div>' +
+        '<div class="form-actions"><button class="btn" type="button" data-action="add-world" data-list="' +
+        worldKey + '">＋ 添加' + label + '</button></div></div>'
+      : '';
+
+    return formHTML + '<div class="worlds">' + listHTML + '</div>';
+  }
+
+  /* ============================================================
+     搜索
+     ============================================================ */
+  function scoreText(text, kw) {
+    if (!text) return 0;
+    var t = String(text).toLowerCase();
+    if (t === kw) return 100;
+    if (t.indexOf(kw) === 0) return 60;
+    if (t.indexOf(kw) !== -1) return 30;
+    return 0;
+  }
+
+  function scoreFields(fields, kw) {
+    var best = 0;
+    fields.forEach(function (f) {
+      var s = scoreText(plainText(f), kw);
+      if (s > best) best = s;
+    });
+    return best;
+  }
+
+  function searchAll(keyword) {
+    var kw = keyword.trim().toLowerCase();
+    if (!kw) return [];
+    var results = [];
+
+    store.timeline.forEach(function (t) {
+      var s = scoreFields([t.time, t.title, t.desc], kw);
+      if (s > 0) results.push({ type: '时间轴', title: t.title, time: t.time, desc: t.desc, score: s });
+    });
+
+    ['factions', 'races', 'settings'].forEach(function (key) {
+      (store[key] || []).forEach(function (item) {
+        var member = findCharacter(item.memberId);
+        var s = scoreFields([item.name, item.intro, member ? member.name : ''], kw);
+        if (s > 0) results.push({ type: SIMPLE_LABELS[key], title: item.name, desc: item.intro, score: s });
+      });
+    });
+
+    store.characters.forEach(function (c) {
+      var s = scoreFields([c.name, c.gender, c.race, c.job, c.intro, c.ability], kw);
+      if (s > 0) results.push({ type: '角色', title: c.name, desc: c.intro, score: s });
+    });
+
+    store.stories.forEach(function (st) {
+      var s = scoreFields([st.title, st.subtitle, st.body], kw);
+      if (s > 0) {
+        var preview = st.subtitle || (st.body ? st.body.slice(0, 80) + (st.body.length > 80 ? '…' : '') : '');
+        results.push({ type: '故事', title: st.title, desc: preview, score: s });
+      }
+    });
+
+    [['attached', '附属世界观'], ['parallel', '平行宇宙']].forEach(function (pair) {
+      (store[pair[0]] || []).forEach(function (w) {
+        var ws = scoreFields([w.name], kw);
+        if (ws > 0) results.push({ type: pair[1], title: w.name, desc: '', score: ws });
+
+        ['factions', 'races', 'settings'].forEach(function (sub) {
+          (w[sub] || []).forEach(function (item) {
+            var member = findCharacter(item.memberId);
+            var s = scoreFields([item.name, item.intro, member ? member.name : ''], kw);
+            if (s > 0) results.push({
+              type: pair[1] + ' · ' + SIMPLE_LABELS[sub],
+              title: item.name, desc: item.intro, score: s
+            });
+          });
+        });
+
+        (w.characters || []).forEach(function (c) {
+          var s = scoreFields([c.name, c.gender, c.race, c.job, c.intro, c.ability], kw);
+          if (s > 0) results.push({
+            type: pair[1] + ' · 角色', title: c.name, desc: c.intro, score: s
+          });
+        });
+
+        (w.stories || []).forEach(function (st) {
+          var s = scoreFields([st.title, st.subtitle, st.body], kw);
+          if (s > 0) {
+            var preview = st.subtitle || (st.body ? st.body.slice(0, 80) + (st.body.length > 80 ? '…' : '') : '');
+            results.push({
+              type: pair[1] + ' · 故事', title: st.title, desc: preview, score: s
+            });
+          }
+        });
+      });
+    });
+
+    results.sort(function (a, b) { return b.score - a.score; });
+    return results;
+  }
+
+  function searchPanelHTML() {
+    var kw = (state.searchKeyword || '').trim();
+    if (!kw) return '<p class="empty">请输入关键词后搜索。</p>';
+    var results = searchAll(kw);
+    if (!results.length) return '<p class="empty">没有找到包含「' + esc(kw) + '」的条目。</p>';
+
+    return '<p class="search-info">找到 <strong>' + results.length + '</strong> 个包含「' + esc(kw) + '」的条目</p>' +
+      '<div class="entries">' + results.map(function (r) {
+        var h = '<div class="entry"><span class="search-tag">' + esc(r.type) + '</span>';
+        h += '<h4 class="entry__name">' + esc(r.title) + '</h4>';
+        if (r.time) h += '<p class="entry__meta"><span class="entry__label">时间</span>' + esc(r.time) + '</p>';
+        if (r.desc) h += '<p class="entry__intro">' + renderRichText(r.desc) + '</p>';
+        return h + '</div>';
+      }).join('') + '</div>';
+  }
+
+  /* ============================================================
+     面板分发
+     ============================================================ */
+  function panelHTML(tab) {
+    switch (tab) {
+      case 'timeline':   return timelinePanelHTML();
+      case 'factions':   return simplePanelHTML('factions', '组织势力');
+      case 'races':      return simplePanelHTML('races', '种族');
+      case 'characters': return characterPanelHTML();
+      case 'settings':   return simplePanelHTML('settings', '详细设定');
+      case 'stories':    return storyPanelHTML();
+      case 'attached':   return worldPanelHTML('attached', '附属世界观');
+      case 'parallel':   return worldPanelHTML('parallel', '平行宇宙');
+      case 'search':     return searchPanelHTML();
+      default:           return '';
+    }
+  }
+
+  /* ============================================================
+     渲染
+     ============================================================ */
+  var mainEl = document.getElementById('main');
+
+  function renderTabs() {
+    var nav = document.getElementById('mainTabs');
+    nav.innerHTML = TABS.map(function (t) {
+      return '<button class="tab' + (state.activeTab === t.key ? ' is-active' : '') + '"' +
+        ' type="button" data-tab="' + t.key + '">' + t.label + '</button>';
+    }).join('');
+  }
+
+  function render() {
+    var scrollY = window.scrollY;
+    renderTabs();
+    mainEl.innerHTML = panelHTML(state.activeTab);
+    applyEditingAvatar();
+
+    if (state.highlightId) {
+      var target = mainEl.querySelector('[data-entry-id="' + state.highlightId + '"]');
+      if (target) {
+        target.classList.add('is-highlight');
+        setTimeout(function () { target.classList.remove('is-highlight'); }, 2000);
+      }
+      state.highlightId = null;
+    }
+
+    var dot = document.getElementById('authDot');
+    var text = document.getElementById('authText');
+    var btn = document.getElementById('authBtn');
+    if (dot) dot.className = 'auth-bar__dot' + (isAdmin ? ' is-online' : '');
+    if (text) text.textContent = isAdmin ? '已登录 · 管理员模式' : '未登录 · 仅可查看';
+    if (btn) btn.textContent = isAdmin ? '退出' : '登录';
+
+    window.scrollTo(0, scrollY);
+  }
+
+  function applyEditingAvatar() {
+    var editors = mainEl.querySelectorAll('.editor[data-form="character"]');
+    for (var i = 0; i < editors.length; i++) {
+      var ed = editors[i];
+      if (ed.dataset.editing !== 'true') continue;
+      var item = getEntryById(ed.dataset.world || null, ed.dataset.worldId || null,
+        ed.dataset.list, state.editing.id);
+      if (item && item.avatar) {
+        ed.__pendingAvatar = item.avatar;
+        var p = ed.querySelector('.avatar-preview');
+        if (p) p.innerHTML = '<img src="' + item.avatar + '" alt="">';
+      }
+    }
+  }
+
+  /* ============================================================
+     提交表单
+     ============================================================ */
+  async function submitTimeline(btn) {
+    if (!isAdmin) return;
+    var editor = btn.closest('.editor');
+    var titleEl = editor.querySelector('[data-field="title"]');
+    var title = titleEl.value.trim();
+    if (!title) { toast('请填写标题', 'err'); titleEl.focus(); return; }
+
+    var data = {
+      time: editor.querySelector('[data-field="time"]').value.trim(),
+      title: title,
+      desc: editor.querySelector('[data-field="desc"]').value.trim()
+    };
+
+    if (isEditing('timeline', null, null)) {
+      await dbUpdate(state.editing.id, data);
+      state.editing = null;
+      try { await fetchAll(); } catch (e) { console.error(e); }
+      render(); toast('已保存修改');
+      return;
+    }
+
+    await dbInsert('timeline', null, null, data);
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render(); toast('已添加');
+  }
+
+  async function submitSimple(btn) {
+    if (!isAdmin) return;
+    var editor = btn.closest('.editor');
+    var listKey = editor.dataset.list;
+    var worldKey = editor.dataset.world || null;
+    var worldId = editor.dataset.worldId || null;
+
+    var nameEl = editor.querySelector('[data-field="name"]');
+    var name = nameEl.value.trim();
+    if (!name) { toast('请填写名字', 'err'); nameEl.focus(); return; }
+
+    var memberEl = editor.querySelector('[data-field="memberId"]');
+    var introEl = editor.querySelector('[data-field="intro"]');
+    var data = {
+      name: name,
+      intro: introEl ? introEl.value.trim() : '',
+      memberId: memberEl && memberEl.value ? memberEl.value : null
+    };
+
+    if (isEditing(listKey, worldKey, worldId)) {
+      await dbUpdate(state.editing.id, data);
+      state.editing = null;
+      try { await fetchAll(); } catch (e) { console.error(e); }
+      render(); toast('已保存修改');
+      return;
+    }
+
+    var moduleKey = worldKey || listKey;
+    await dbInsert(moduleKey, worldId, worldKey ? listKey : null, data);
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render(); toast('已添加');
+  }
+
+  async function submitCharacter(btn) {
+    if (!isAdmin) return;
+    var editor = btn.closest('.editor');
+    var listKey = editor.dataset.list || 'characters';
+    var worldKey = editor.dataset.world || null;
+    var worldId = editor.dataset.worldId || null;
+
+    function val(f) { var el = editor.querySelector('[data-field="' + f + '"]'); return el ? el.value.trim() : ''; }
+
+    var name = val('name');
+    if (!name) { toast('请填写姓名', 'err'); editor.querySelector('[data-field="name"]').focus(); return; }
+
+    var data = {
+      name: name, gender: val('gender'), race: val('race'), job: val('job'),
+      intro: val('intro'), ability: val('ability'),
+      avatar: editor.__pendingAvatar || null
+    };
+
+    if (isEditing(listKey, worldKey, worldId)) {
+      await dbUpdate(state.editing.id, data);
+      state.editing = null;
+      try { await fetchAll(); } catch (e) { console.error(e); }
+      render(); toast('已保存修改');
+      return;
+    }
+
+    var moduleKey = worldKey || 'characters';
+    await dbInsert(moduleKey, worldId, worldKey ? 'characters' : null, data);
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render(); toast('已添加角色');
+  }
+
+  async function submitStory(btn) {
+    if (!isAdmin) return;
+    var editor = btn.closest('.editor');
+    var listKey = editor.dataset.list || 'stories';
+    var worldKey = editor.dataset.world || null;
+    var worldId = editor.dataset.worldId || null;
+
+    var titleEl = editor.querySelector('[data-field="title"]');
+    var title = titleEl.value.trim();
+    if (!title) { toast('请填写标题', 'err'); titleEl.focus(); return; }
+
+    var subtitleEl = editor.querySelector('[data-field="subtitle"]');
+    var bodyEl = editor.querySelector('[data-field="body"]');
+
+    var data = {
+      title: title,
+      subtitle: subtitleEl ? subtitleEl.value.trim() : '',
+      body: bodyEl ? bodyEl.value : ''
+    };
+
+    if (isEditing(listKey, worldKey, worldId)) {
+      await dbUpdate(state.editing.id, data);
+      state.editing = null;
+      try { await fetchAll(); } catch (e) { console.error(e); }
+      render(); toast('已保存修改');
+      return;
+    }
+
+    var moduleKey = worldKey || 'stories';
+    await dbInsert(moduleKey, worldId, worldKey ? 'stories' : null, data);
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render(); toast('已添加故事');
+  }
+
+  async function addWorld(btn) {
+    if (!isAdmin) return;
+    var editor = btn.closest('.editor');
+    var worldKey = editor.dataset.list;
+    var nameEl = editor.querySelector('[data-field="name"]');
+    var name = nameEl.value.trim();
+    if (!name) { toast('请填写名称', 'err'); nameEl.focus(); return; }
+
+    await dbInsert(worldKey, null, null, { name: name });
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render(); toast('已添加');
+  }
+
+  async function delEntry(btn) {
+    if (!isAdmin) return;
+    var id = btn.dataset.id;
+    if (!window.confirm('确定要删除吗？')) return;
+    await dbDelete(id);
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render(); toast('已删除');
+  }
+
+  async function delTimeline(id) {
+    if (!isAdmin) return;
+    if (!window.confirm('确定要删除这个时间点吗？')) return;
+    await dbDelete(id);
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render(); toast('已删除');
+  }
+
+  async function delWorld(btn) {
+    if (!isAdmin) return;
+    var id = btn.dataset.id;
+    if (!window.confirm('确定要删除这个世界及其全部内容吗？')) return;
+
+    var res = await supabase.from('entries').select('id').eq('parent_id', id);
+    if (res.data) {
+      for (var i = 0; i < res.data.length; i++) {
+        await dbDelete(res.data[i].id);
+      }
+    }
+    await dbDelete(id);
+    delete state.worldSubTab[id];
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render(); toast('已删除');
+  }
+
+  function startEdit(btn) {
+    if (!isAdmin) return;
+    state.editing = {
+      worldKey: btn.dataset.world || null,
+      worldId: btn.dataset.worldId || null,
+      listKey: btn.dataset.list,
+      id: btn.dataset.id
+    };
+    render();
+    setTimeout(function () {
+      var editor = mainEl.querySelector('.editor[data-editing="true"]');
+      if (editor) {
+        editor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var first = editor.querySelector('input[type="text"], textarea');
+        if (first) first.focus();
+      }
+    }, 80);
+  }
+
+  function cancelEdit() { state.editing = null; render(); toast('已取消'); }
+
+  function switchSubTab(btn) {
+    var worldKey = btn.dataset.world;
+    var worldId = btn.dataset.worldId;
+    var sub = btn.dataset.sub;
+    state.worldSubTab[worldId] = sub;
+
+    var worlds = store[worldKey] || [];
+    var world = null;
+    for (var i = 0; i < worlds.length; i++) {
+      if (worlds[i].id === worldId) { world = worlds[i]; break; }
+    }
+    var card = btn.closest('.world');
+    if (!world || !card) { render(); return; }
+    card.outerHTML = worldCardHTML(world, worldKey);
+  }
+
+  /* ============================================================
+     链接选择器
+     ============================================================ */
+  function collectLinkTargets() {
+    var groups = [];
+    if (store.timeline.length) {
+      groups.push({ label: '时间轴', items: store.timeline.map(function (x) { return { id: x.id, name: x.title }; }) });
+    }
+    ['factions', 'races', 'characters', 'settings'].forEach(function (key) {
+      var list = store[key] || [];
+      if (list.length) groups.push({ label: SIMPLE_LABELS[key], items: list.map(function (x) { return { id: x.id, name: x.name }; }) });
+    });
+    if (store.stories.length) {
+      groups.push({
+        label: '故事',
+        items: store.stories.map(function (x) { return { id: x.id, name: x.title || '无题' }; })
+      });
+    }
+    [['attached', '附属世界观'], ['parallel', '平行宇宙']].forEach(function (pair) {
+      (store[pair[0]] || []).forEach(function (w) {
+        SUBS.forEach(function (sub) {
+          var subList = w[sub.key] || [];
+          if (subList.length) {
+            groups.push({
+              label: pair[1] + ' · ' + w.name + ' · ' + sub.label,
+              items: subList.map(function (x) { return { id: x.id, name: entryName(x) }; })
+            });
+          }
+        });
+      });
+    });
+    return groups;
+  }
+
+  function openLinkPicker(btn) {
+    var field = btn.closest('.field');
+    if (!field) return;
+    var textarea = field.querySelector('textarea');
+    if (!textarea) return;
+    linkPickerTarget = textarea;
+
+    var groups = collectLinkTargets();
+    var body = document.getElementById('linkModalBody');
+    if (!groups.length) {
+      body.innerHTML = '<p class="modal__hint">目前没有可链接的条目。</p>';
+    } else {
+      var html = '<p class="modal__hint">点击一个条目，在当前光标位置插入链接。</p>';
+      groups.forEach(function (g) {
+        html += '<div class="link-group"><h4 class="link-group__label">' + esc(g.label) + '</h4><ul class="link-list">';
+        g.items.forEach(function (it) {
+          html += '<li><button type="button" class="link-item" data-link-id="' + esc(it.id) +
+            '" data-link-name="' + esc(it.name) + '">' + esc(it.name) + '</button></li>';
+        });
+        html += '</ul></div>';
+      });
+      body.innerHTML = html;
+    }
+    document.getElementById('linkModal').hidden = false;
+  }
+
+  function closeLinkModal() {
+    document.getElementById('linkModal').hidden = true;
+    linkPickerTarget = null;
+  }
+
+  function insertAtCursor(textarea, text) {
+    var start = textarea.selectionStart || 0;
+    var end = textarea.selectionEnd || 0;
+    var val = textarea.value;
+    textarea.value = val.slice(0, start) + text + val.slice(end);
+    var pos = start + text.length;
+    textarea.setSelectionRange(pos, pos);
+    textarea.focus();
+  }
+
+  function pickLinkTarget(id, name) {
+    if (!linkPickerTarget) return;
+    var safeName = String(name || '链接').replace(/[|\]]/g, '');
+    insertAtCursor(linkPickerTarget, '[[link:' + id + '|' + safeName + ']]');
+    closeLinkModal();
+    toast('已插入链接');
+  }
+
+  /* ============================================================
+     跳转到链接目标
+     ============================================================ */
+  function findEntryLocation(id) {
+    for (var i = 0; i < store.timeline.length; i++) {
+      if (store.timeline[i].id === id) return { tab: 'timeline' };
+    }
+    var topKeys = ['factions', 'races', 'characters', 'settings', 'stories'];
+    for (var k = 0; k < topKeys.length; k++) {
+      var list = store[topKeys[k]] || [];
+      for (var j = 0; j < list.length; j++) {
+        if (list[j].id === id) return { tab: topKeys[k] };
+      }
+    }
+    var worldKeys = ['attached', 'parallel'];
+    for (var w = 0; w < worldKeys.length; w++) {
+      var worlds = store[worldKeys[w]] || [];
+      for (var wi = 0; wi < worlds.length; wi++) {
+        var world = worlds[wi];
+        for (var s = 0; s < SUBS.length; s++) {
+          var subKey = SUBS[s].key;
+          var subList = world[subKey] || [];
+          for (var si = 0; si < subList.length; si++) {
+            if (subList[si].id === id) return { tab: worldKeys[w], worldId: world.id, subKey: subKey };
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  function jumpToEntry(id) {
+    var loc = findEntryLocation(id);
+    if (!loc) { toast('找不到该条目', 'err'); return; }
+    state.activeTab = loc.tab;
+    if (loc.worldId && loc.subKey) state.worldSubTab[loc.worldId] = loc.subKey;
+    state.highlightId = id;
+    render();
+    setTimeout(function () {
+      var target = mainEl.querySelector('[data-entry-id="' + id + '"]');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  }
+
+  /* ============================================================
+     事件委托
+     ============================================================ */
+  mainEl.addEventListener('click', function (e) {
+    var link = e.target.closest('a.entry-link');
+    if (link && mainEl.contains(link)) {
+      e.preventDefault();
+      if (link.dataset.linkId) jumpToEntry(link.dataset.linkId);
+      return;
+    }
+
+    var btn = e.target.closest('[data-action]');
+    if (!btn || !mainEl.contains(btn)) return;
+
+    switch (btn.dataset.action) {
+      case 'add-timeline':  submitTimeline(btn); break;
+      case 'del-timeline':  delTimeline(btn.dataset.id); break;
+      case 'add-simple':    submitSimple(btn); break;
+      case 'add-character': submitCharacter(btn); break;
+      case 'add-story':     submitStory(btn); break;
+      case 'add-world':     addWorld(btn); break;
+      case 'del-entry':     delEntry(btn); break;
+      case 'del-world':     delWorld(btn); break;
+      case 'edit-entry':    startEdit(btn); break;
+      case 'cancel-edit':   cancelEdit(); break;
+      case 'sub-tab':       switchSubTab(btn); break;
+      case 'open-link-picker': openLinkPicker(btn); break;
+    }
+  });
+
+  mainEl.addEventListener('change', function (e) {
+    var input = e.target.closest('input[type="file"][data-field="avatar"]');
+    if (!input) return;
+    var editor = input.closest('.editor');
+    var preview = editor.querySelector('.avatar-preview');
+    var file = input.files && input.files[0];
+
+    if (!file) { editor.__pendingAvatar = null; if (preview) preview.innerHTML = ''; return; }
+
+    fileToDataUrl(file).then(function (raw) { return shrinkImage(raw, 320); })
+      .then(function (small) {
+        editor.__pendingAvatar = small;
+        if (preview) preview.innerHTML = '<img src="' + small + '" alt="">';
+      }).catch(function () { toast('图片读取失败', 'err'); });
+  });
+
+  mainEl.addEventListener('keydown', function (e) {
+    if (!(e.ctrlKey || e.metaKey) || e.key !== 'Enter') return;
+    var editor = e.target.closest('.editor');
+    if (!editor) return;
+    var btn = editor.querySelector('[data-action^="add-"]');
+    if (btn) btn.click();
+  });
+
+  document.getElementById('mainTabs').addEventListener('click', function (e) {
+    var tab = e.target.closest('[data-tab]');
+    if (!tab) return;
+    var key = tab.dataset.tab;
+    if (state.activeTab === key) return;
+    state.editing = null;
+    state.activeTab = key;
+    render();
+  });
+
+  document.getElementById('linkModal').addEventListener('click', function (e) {
+    if (e.target.closest('[data-action="close-link-modal"]')) { closeLinkModal(); return; }
+    var item = e.target.closest('.link-item');
+    if (item) pickLinkTarget(item.dataset.linkId, item.dataset.linkName);
+  });
+
+  var searchInput = document.getElementById('searchInput');
+  document.getElementById('searchBtn').addEventListener('click', function () {
+    var kw = (searchInput.value || '').trim();
+    if (!kw) { toast('请输入搜索内容', 'err'); searchInput.focus(); return; }
+    state.editing = null;
+    state.searchKeyword = kw;
+    state.activeTab = 'search';
+    render();
+  });
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); document.getElementById('searchBtn').click(); }
+  });
+
+  /* ============================================================
+     登录 / 退出
+     ============================================================ */
+  document.getElementById('authBtn').addEventListener('click', async function () {
+    if (isAdmin) {
+      await supabase.auth.signOut();
+      isAdmin = false;
+      state.editing = null;
+      render();
+      toast('已退出登录');
+    } else {
+      document.getElementById('authModal').hidden = false;
+      document.getElementById('authEmail').focus();
+    }
+  });
+
+  document.getElementById('authSubmit').addEventListener('click', async function () {
+    var email = document.getElementById('authEmail').value.trim();
+    var password = document.getElementById('authPassword').value;
+    if (!email || !password) { toast('请填写邮箱和密码', 'err'); return; }
+
+    var res = await supabase.auth.signInWithPassword({ email: email, password: password });
+    if (res.error) {
+      toast('登录失败：' + res.error.message, 'err');
+      return;
+    }
+
+    isAdmin = true;
+    document.getElementById('authModal').hidden = true;
+    document.getElementById('authPassword').value = '';
+    try { await fetchAll(); } catch (e) { console.error(e); }
+    render();
+    toast('登录成功，管理员模式已开启');
+  });
+
+  document.getElementById('authModal').addEventListener('click', function (e) {
+    if (e.target.closest('[data-action="close-auth-modal"]')) {
+      document.getElementById('authModal').hidden = true;
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      var am = document.getElementById('authModal');
+      var lm = document.getElementById('linkModal');
+      if (am && !am.hidden) am.hidden = true;
+      if (lm && !lm.hidden) closeLinkModal();
+    }
+  });
+
+  /* ============================================================
+     初始化
+     ============================================================ */
+  async function init() {
+    try {
+      var session = await supabase.auth.getSession();
+      if (session.data && session.data.session) isAdmin = true;
+
+      await fetchAll();
+    } catch (err) {
+      console.error('初始化失败：', err);
+      toast('数据加载失败：' + (err.message || '请刷新重试'), 'err');
+    } finally {
+      var loadingEl = document.getElementById('loading');
+      if (loadingEl) loadingEl.hidden = true;
+
+      try { render(); } catch (e) { console.error('渲染失败：', e); }
+    }
+  }
+
+  supabase.auth.onAuthStateChange(function (event, session) {
+    var wasAdmin = isAdmin;
+    isAdmin = !!session;
+    if (wasAdmin !== isAdmin) {
+      state.editing = null;
+      render();
+    }
+  });
+
+  init();
+
+})();
+</script>
+</body>
+</html>
