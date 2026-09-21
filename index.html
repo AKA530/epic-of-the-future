@@ -325,7 +325,19 @@
 	  .card__desc { margin: 0; font-size: 14px; color: var(--text); white-space: pre-line; }
 	
 	  /* ================= 通用条目卡片 ================= */
-	  .entries { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+	  .entries { 
+		  display: grid; 
+		  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+		  gap: 14px; 
+	  }
+
+	.entries--stories { grid-template-columns: 1fr; }
+
+.story-body {
+  min-height: 320px;
+  font-size: 15px;
+  line-height: 1.8;
+}
 	
 	  .entry {
 	    position: relative;
@@ -649,11 +661,12 @@
 		       { key: 'races',      label: '种族' },
 		       { key: 'characters', label: '角色' },
 		       { key: 'settings',   label: '详细设定' }
+			   { key: 'stories',   label: '故事' }
 		     ];
 		   
 		     var SIMPLE_LABELS = {
 		       factions: '组织势力', races: '种族',
-		       settings: '详细设定', characters: '角色'
+		       settings: '详细设定', characters: '角色',stories:'故事'
 		     };
 		   
 		     var LINK_RE = /\[\[link:([^|\]]+)\|([^\]]*)\]\]/g;
@@ -670,7 +683,7 @@
 		   
 		     var store = {
 		       timeline: [], factions: [], races: [], characters: [],
-		       settings: [], attached: [], parallel: []
+		       settings: [], attached: [], parallel: [],stories:[]
 		     };
 		   
 		     var state = {
@@ -766,7 +779,7 @@
 		       /* 重置本地缓存 */
 		       store.timeline = []; store.factions = []; store.races = [];
 		       store.characters = []; store.settings = [];
-		       store.attached = []; store.parallel = [];
+		       store.attached = []; store.parallel = []; store.stories = [];
 		   
 		       var rows = res.data || [];
 		   
@@ -777,7 +790,8 @@
 		           if (!row.parent_id) {
 		             var world = Object.assign({ id: row.id }, row.data);
 		             world.factions = []; world.races = [];
-		             world.characters = []; world.settings = [];
+		             world.characters = []; world.settings = []; 
+					 world.stories = [];
 		             store[row.module].push(world);
 		             worldMap[row.id] = world;
 		           }
@@ -796,7 +810,8 @@
 		         } else if (row.module === 'timeline') {
 		           store.timeline.push(item);
 		         } else if (row.module === 'factions' || row.module === 'races' ||
-		                    row.module === 'characters' || row.module === 'settings') {
+		                    row.module === 'characters' || row.module === 'settings' || 
+						   row.module === 'stories') {
 		           store[row.module].push(item);
 		         }
 		         /* 世界容器本身已经处理过了，跳过 */
@@ -967,8 +982,55 @@
 			       if (c.ability) html += '<p class="entry__meta"><span class="entry__label">能力</span>' + renderRichText(c.ability) + '</p >';
 			       html += '</div>';
 			     }
-			     return html;
-			   }
+			    return html;
+			 }
+
+		  /* 故事条目卡片 */
+          function storyEntriesHTML(items, ctx) {
+            if (!items || !items.length) return '<p class="empty">还没有故事。</p >';
+            var html = '';
+            for (var i = 0; i < items.length; i++) {
+              var s = items[i];
+              html += '<div class="entry entry--story" data-entry-id="' + esc(s.id) + '">';
+              html += adminOnly(
+                '<button class="entry__edit" type="button" data-action="edit-entry"' +
+                ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
+                '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(s.id) + '" title="编辑">✎</button>' +
+                '<button class="entry__del" type="button" data-action="del-entry"' +
+                ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
+                '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(s.id) + '" title="删除">×</button>');
+              html += '<h4 class="entry__name">' + esc(s.title) + '</h4>';
+              if (s.subtitle) {
+              html += '<p class="entry__meta" style="margin-top:0">' +'<span class="entry__label">副题</span>' + esc(s.subtitle) + '</p >';
+    }
+              if (s.body) {
+              html += '<p class="entry__intro">' + renderRichText(s.body) + '</p >';
+    }
+              html += '</div>';
+  }
+  return html;
+}
+
+/* 故事表单 */
+function storyFormHTML(worldKey, worldId, compact) {
+  if (!isAdmin) return '';
+  var editing = isEditing('stories', worldKey, worldId);
+  var v = editing ? getEntryById(worldKey, worldId, 'stories', state.editing.id) : null;
+  function val(k) { return esc(v ? v[k] || '' : ''); }
+
+  return '<div class="editor' + (compact ? ' editor--compact' : '') + '"' +
+    ' data-form="story" data-list="stories"' +
+    ' data-world="' + esc(worldKey || '') + '" data-world-id="' + esc(worldId || '') + '"' +
+    (editing ? ' data-editing="true"' : '') + '>' +
+    '<div class="field"><label>标题</label>' +
+    '<input type="text" data-field="title" value="' + val('title') + '" placeholder="故事标题"></div>' +
+    '<div class="field"><label>副题（可选）</label>' +
+    '<input type="text" data-field="subtitle" value="' + val('subtitle') + '" placeholder="副题"></div>' +
+    '<div class="field field--full"><label>正文</label>' +
+    '<textarea class="story-body" data-field="body" placeholder="正文内容，可输入大量文字">' + val('body') + '</textarea>' +
+    linkToolsHTML() + '</div>' +
+    formActionsHTML('add-story', '＋ 添加故事', editing) + '</div>';
+}
 			 
 			   /* 
 			   ============================================================
@@ -1043,6 +1105,13 @@
 			         simpleEntriesHTML(store[listKey] || [], { worldKey: null, worldId: null, listKey: listKey }) +
 			         '</div>';
 			     }
+
+		         function storyPanelHTML() {
+  return storyFormHTML(null, null, false) +
+    '<div class="entries entries--stories">' +
+    storyEntriesHTML(store.stories || [], { worldKey: null, worldId: null, listKey: 'stories' }) +
+    '</div>';
+}
 			   
 			     function characterFormHTML(worldKey, worldId, compact) {
 			       if (!isAdmin) return '';
@@ -1080,13 +1149,23 @@
 			       var subLabel = '组织势力';
 			       SUBS.forEach(function (s) { if (s.key === sub) subLabel = s.label; });
 			   
-			       var subContent = sub === 'characters'
-			         ? characterEntriesHTML(world.characters || [], { worldKey: worldKey, worldId: world.id, listKey: 'characters' })
-			         : simpleEntriesHTML(world[sub] || [], { worldKey: worldKey, worldId: world.id, listKey: sub });
-			   
-			       var subForm = sub === 'characters'
-			         ? characterFormHTML(worldKey, world.id, true)
-			         : simpleFormHTML(sub, worldKey, world.id, true);
+			       var subContent;
+if (sub === 'characters') {
+  subContent = characterEntriesHTML(world.characters || [], { worldKey: worldKey, worldId: world.id, listKey: 'characters' });
+} else if (sub === 'stories') {
+  subContent = storyEntriesHTML(world.stories || [], { worldKey: worldKey, worldId: world.id, listKey: 'stories' });
+} else {
+  subContent = simpleEntriesHTML(world[sub] || [], { worldKey: worldKey, worldId: world.id, listKey: sub });
+}
+
+var subForm;
+if (sub === 'characters') {
+  subForm = characterFormHTML(worldKey, world.id, true);
+} else if (sub === 'stories') {
+  subForm = storyFormHTML(worldKey, world.id, true);
+} else {
+  subForm = simpleFormHTML(sub, worldKey, world.id, true);
+}
 			   
 			       var subtabs = SUBS.map(function (s) {
 			         return '<button class="subtab' + (sub === s.key ? ' is-active' : '') + '"' +
@@ -1101,7 +1180,7 @@
 			           ' data-world="' + worldKey + '" data-id="' + esc(world.id) + '" title="删除">×</button>') +
 			         '</header><nav class="subtabs">' + subtabs + '</nav>' +
 			         '<div class="subpanel">' + subForm +
-			         '<div class="entries">' + subContent + '</div></div></div>';
+			         '<div class="entries' + (sub === 'stories' ? ' entries--stories' : '') + '">' + subContent + '</div></div></div>';
 			     }
 			   
 			     function worldPanelHTML(worldKey, label) {
@@ -1165,6 +1244,11 @@
 				       var s = scoreFields([c.name, c.gender, c.race, c.job, c.intro, c.ability], kw);
 				       if (s > 0) results.push({ type: '角色', title: c.name, desc: c.intro, score: s });
 				     });
+
+					   (store.stories || []).forEach(function (s) {
+  var sc = scoreFields([s.title, s.subtitle, s.body], kw);
+  if (sc > 0) results.push({ type: '故事', title: s.title, desc: s.subtitle || s.body, score: sc });
+});
 				 
 				     [['attached', '附属世界观'], ['parallel', '平行宇宙']].forEach(function (pair) {
 				       (store[pair[0]] || []).forEach(function (w) {
@@ -1185,6 +1269,11 @@
 				         });
 				       });
 				     });
+
+					   (w.stories || []).forEach(function (s) {
+  var sc = scoreFields([s.title, s.subtitle, s.body], kw);
+  if (sc > 0) results.push({ type: pair[1] + ' · 故事', title: s.title, desc: s.subtitle || s.body, score: sc });
+});
 				 
 				     results.sort(function (a, b) { return b.score - a.score; });
 				     return results;
@@ -1216,9 +1305,10 @@
 				       case 'races':      return simplePanelHTML('races', '种族');
 				       case 'characters': return characterPanelHTML();
 				       case 'settings':   return simplePanelHTML('settings', '详细设定');
-				       case 'attached':   return worldPanelHTML('attached', '附属世界观');
-				       case 'parallel':   return worldPanelHTML('parallel', '平行宇宙');
-				       case 'search':     return searchPanelHTML();
+				       case 'stories':    return storyPanelHTML();
+                       case 'attached':   return worldPanelHTML('attached', '附属世界观');
+                       case 'parallel':   return worldPanelHTML('parallel', '平行宇宙');
+                       case 'search':     return searchPanelHTML();
 				       default:           return '';
 				     }
 				   }
@@ -1236,6 +1326,7 @@
 				     { key: 'settings', label: '详细设定' },
 				     { key: 'attached', label: '附属世界观' },
 				     { key: 'parallel', label: '平行宇宙' }
+					 { key: 'stories', label: '故事' }
 				   ];
 				 
 				   function renderTabs() {
@@ -1375,6 +1466,37 @@
 				       await fetchAll(); render(); toast('已保存修改');
 				       return;
 				     }
+
+					   async function submitStory(btn) {
+  if (!isAdmin) return;
+  var editor = btn.closest('.editor');
+  var listKey = editor.dataset.list || 'stories';
+  var worldKey = editor.dataset.world || null;
+  var worldId = editor.dataset.worldId || null;
+
+  var titleEl = editor.querySelector('[data-field="title"]');
+  var title = titleEl.value.trim();
+  if (!title) { toast('请填写标题', 'err'); titleEl.focus(); return; }
+
+  var subEl = editor.querySelector('[data-field="subtitle"]');
+  var bodyEl = editor.querySelector('[data-field="body"]');
+  var data = {
+    title: title,
+    subtitle: subEl ? subEl.value.trim() : '',
+    body: bodyEl ? bodyEl.value : ''
+  };
+
+  if (isEditing(listKey, worldKey, worldId)) {
+    await dbUpdate(state.editing.id, data);
+    state.editing = null;
+    await fetchAll(); render(); toast('已保存修改');
+    return;
+  }
+
+  var moduleKey = worldKey || 'stories';
+  await dbInsert(moduleKey, worldId, worldKey ? 'stories' : null, data);
+  await fetchAll(); render(); toast('已添加故事');
+}
 				 
 				     var moduleKey = worldKey || 'characters';
 				     await dbInsert(moduleKey, worldId, worldKey ? 'characters' : null, data);
@@ -1470,10 +1592,15 @@
 				       if (store.timeline.length) {
 				         groups.push({ label: '时间轴', items: store.timeline.map(function (x) { return { id: x.id, name: x.title }; }) });
 				       }
-				       ['factions', 'races', 'characters', 'settings'].forEach(function (key) {
-				         var list = store[key] || [];
-				         if (list.length) groups.push({ label: SIMPLE_LABELS[key], items: list.map(function (x) { return { id: x.id, name: x.name }; }) });
-				       });
+				       ['factions', 'races', 'characters', 'settings', 'stories'].forEach(function (key) {
+  var list = store[key] || [];
+  if (list.length) {
+    groups.push({
+      label: SIMPLE_LABELS[key],
+      items: list.map(function (x) { return { id: x.id, name: x.title || x.name }; })
+    });
+  }
+});
 				       [['attached', '附属世界观'], ['parallel', '平行宇宙']].forEach(function (pair) {
 				         (store[pair[0]] || []).forEach(function (w) {
 				           SUBS.forEach(function (sub) {
@@ -1481,7 +1608,7 @@
 				             if (subList.length) {
 				               groups.push({
 				                 label: pair[1] + ' · ' + w.name + ' · ' + sub.label,
-				                 items: subList.map(function (x) { return { id: x.id, name: x.name }; })
+				                 items: subList.map(function (x) { return { id: x.id, name: x.title || x.name }; })
 				               });
 				             }
 				           });
@@ -1546,7 +1673,7 @@
 				       for (var i = 0; i < store.timeline.length; i++) {
 				         if (store.timeline[i].id === id) return { tab: 'timeline' };
 				       }
-				       var topKeys = ['factions', 'races', 'characters', 'settings'];
+				       var topKeys = ['factions', 'races', 'characters', 'settings' , 'stories'];
 				       for (var k = 0; k < topKeys.length; k++) {
 				         var list = store[topKeys[k]] || [];
 				         for (var j = 0; j < list.length; j++) {
@@ -1602,6 +1729,7 @@
 				         case 'del-timeline':  delTimeline(btn.dataset.id); break;
 				         case 'add-simple':    submitSimple(btn); break;
 				         case 'add-character': submitCharacter(btn); break;
+						 case 'add-story':     submitStory(btn); break;
 				         case 'add-world':     addWorld(btn); break;
 				         case 'del-entry':     delEntry(btn); break;
 				         case 'del-world':     delWorld(btn); break;
