@@ -235,6 +235,8 @@
     cursor: pointer;
   }
 
+  .link-btn:active { color: #fff; background: var(--dot); }
+
   .form-actions { grid-column: 1 / -1; display: flex; gap: 10px; }
 
   .btn {
@@ -258,6 +260,97 @@
     font-weight: 500;
   }
 
+  /* ================= 成员多选控件 ================= */
+  .member-select {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 12px;
+    background: #fbfcfe;
+    border: 1px solid #dfe3ee;
+    border-radius: 10px;
+  }
+
+  .member-select__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 22px;
+  }
+
+  .member-select__empty {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .member-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px 4px 2px 10px;
+    font-size: 12px;
+    color: var(--dot);
+    background: rgba(91, 124, 250, .10);
+    border-radius: 999px;
+  }
+
+  .member-chip__remove {
+    width: 18px; height: 18px;
+    display: grid; place-items: center;
+    padding: 0; line-height: 1;
+    font-size: 13px;
+    color: var(--dot);
+    background: transparent;
+    border: none; border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .member-chip__remove:active { color: #fff; background: var(--dot); }
+
+  .member-select__btn {
+    align-self: flex-start;
+  }
+
+  .member-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0; padding: 0; list-style: none;
+  }
+
+  .member-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+
+  .member-item:hover { background: #f4f5fa; }
+
+  .member-item input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--dot);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .member-item__avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #f1f3fa;
+  }
+
+  .member-item span {
+    font-size: 14px;
+    color: var(--title);
+  }
+
+  /* ================= 时间轴 ================= */
   .timeline { position: relative; max-width: 960px; margin: 0 auto; padding: 24px 0; }
 
   .timeline::before {
@@ -621,6 +714,7 @@
 <nav class="tabs" id="mainTabs"></nav>
 <main class="main" id="main"></main>
 
+<!-- 登录模态框 -->
 <div class="modal" id="authModal" hidden>
   <div class="modal__backdrop" data-action="close-auth-modal"></div>
   <div class="modal__box">
@@ -643,6 +737,7 @@
   </div>
 </div>
 
+<!-- 链接选择模态框 -->
 <div class="modal" id="linkModal" hidden>
   <div class="modal__backdrop" data-action="close-link-modal"></div>
   <div class="modal__box">
@@ -654,11 +749,21 @@
   </div>
 </div>
 
+<!-- 成员多选模态框 -->
+<div class="modal" id="memberModal" hidden>
+  <div class="modal__backdrop" data-action="close-member-modal"></div>
+  <div class="modal__box">
+    <header class="modal__head">
+      <h3 class="modal__title">选择成员（可多选）</h3>
+      <button class="modal__close" type="button" data-action="close-member-modal">×</button>
+    </header>
+    <div class="modal__body" id="memberModalBody"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- ============ Supabase SDK ============
-     修复点：使用 @2 让 CDN 解析到最新稳定版，
-     而不是写死一个可能不存在的具体版本号。 -->
+<!-- ============ Supabase SDK ============ -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
 <script>
@@ -666,9 +771,7 @@
   'use strict';
 
   /* ============================================================
-     修复点：在脚本最开头检查 SDK 是否加载成功。
-     如果 SDK 加载失败（CDN 404 / 网络问题），
-     立即显示错误并终止脚本，避免整个 IIFE 崩溃导致“静默失败”。
+     SDK 加载检查：如果 CDN 失败，显示错误而不是静默崩溃
      ============================================================ */
   if (!window.supabase || typeof window.supabase.createClient !== 'function') {
     var loadingEl = document.getElementById('loading');
@@ -742,6 +845,7 @@
   };
 
   var linkPickerTarget = null;
+  var memberModalForm = null;   // 当前正在编辑的 .member-select 元素
 
   /* ============================================================
      小工具
@@ -808,6 +912,19 @@
       img.onerror = function () { resolve(dataUrl); };
       img.src = dataUrl;
     });
+  }
+
+  /* 解析逗号分隔的 ID 字符串 */
+  function parseMemberIds(str) {
+    return String(str || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+
+  /* 兼容读取：老数据用 memberId 单值，新数据用 memberIds 数组 */
+  function getMemberIds(item) {
+    if (!item) return [];
+    if (Array.isArray(item.memberIds)) return item.memberIds.filter(Boolean);
+    if (item.memberId) return [item.memberId];
+    return [];
   }
 
   /* ============================================================
@@ -909,6 +1026,25 @@
     return null;
   }
 
+  /* 全局查找角色：先顶层，再所有世界容器内的角色 */
+  function findAnyCharacter(id) {
+    if (!id) return null;
+    var c = findCharacter(id);
+    if (c) return c;
+    var worldKeys = ['attached', 'parallel'];
+    for (var w = 0; w < worldKeys.length; w++) {
+      var worlds = store[worldKeys[w]] || [];
+      for (var i = 0; i < worlds.length; i++) {
+        var chars = worlds[i].characters || [];
+        for (var j = 0; j < chars.length; j++) {
+          if (chars[j].id === id) return chars[j];
+        }
+      }
+    }
+    return null;
+  }
+
+  /* 编辑时可供选择的角色池：顶层全部 + 当前世界容器内的角色 */
   function characterPool(worldKey, worldId) {
     var pool = store.characters.slice();
     if (worldKey && worldId) {
@@ -938,18 +1074,89 @@
   }
 
   /* ============================================================
-     HTML 片段
+     成员选择器
      ============================================================ */
-  function memberSelectHTML(worldKey, worldId, selectedId) {
-    var pool = characterPool(worldKey, worldId);
-    var html = '<select data-field="memberId"><option value="">无</option>';
-    for (var i = 0; i < pool.length; i++) {
-      html += '<option value="' + esc(pool[i].id) + '"' +
-        (pool[i].id === selectedId ? ' selected' : '') + '>' + esc(pool[i].name) + '</option>';
-    }
-    return html + '</select>';
+
+  /* 表单里的 HTML 骨架。selectedIds 是数组 */
+  function memberSelectHTML(worldKey, worldId, selectedIds) {
+    var ids = Array.isArray(selectedIds) ? selectedIds.filter(Boolean) : [];
+    return '<div class="member-select" data-field="memberIds"' +
+      ' data-selected="' + esc(ids.join(',')) + '"' +
+      ' data-world="' + esc(worldKey || '') + '"' +
+      ' data-world-id="' + esc(worldId || '') + '">' +
+      '<div class="member-select__chips"></div>' +
+      '<button type="button" class="link-btn member-select__btn" data-action="open-member-picker">＋ 选择成员</button>' +
+      '</div>';
   }
 
+  /* 根据 data-selected 渲染 chips */
+  function renderMemberChips(container) {
+    if (!container) return;
+    var selectedIds = parseMemberIds(container.dataset.selected);
+    var chipsEl = container.querySelector('.member-select__chips');
+    if (!chipsEl) return;
+
+    if (!selectedIds.length) {
+      chipsEl.innerHTML = '<span class="member-select__empty">未选择成员</span>';
+      return;
+    }
+
+    var html = '';
+    selectedIds.forEach(function (id) {
+      var c = findAnyCharacter(id);
+      var name = c ? c.name : '（已删除）';
+      html += '<span class="member-chip">' + esc(name) +
+        '<button type="button" class="member-chip__remove" data-remove-id="' + esc(id) +
+        '" aria-label="移除">×</button></span>';
+    });
+    chipsEl.innerHTML = html;
+  }
+
+  /* 打开多选弹窗 */
+  function openMemberPicker(btn) {
+    var container = btn.closest('.member-select');
+    if (!container) return;
+    memberModalForm = container;
+
+    var selectedIds = parseMemberIds(container.dataset.selected);
+    var worldKey = container.dataset.world || null;
+    var worldId = container.dataset.worldId || null;
+    var pool = characterPool(worldKey, worldId);
+
+    var body = document.getElementById('memberModalBody');
+
+    if (!pool.length) {
+      body.innerHTML =
+        '<p class="modal__hint">还没有可选的成员。请先到「角色」模块添加角色。</p>' +
+        '<div class="form-actions" style="margin-top:16px">' +
+        '<button type="button" class="btn btn--ghost" data-action="close-member-modal">关闭</button></div>';
+    } else {
+      var html = '<p class="modal__hint">勾选任意数量的成员，选择会立即同步到表单。</p><ul class="member-list">';
+      pool.forEach(function (c) {
+        var checked = selectedIds.indexOf(c.id) !== -1;
+        html += '<li><label class="member-item">' +
+          '<input type="checkbox" value="' + esc(c.id) + '"' + (checked ? ' checked' : '') + '>' +
+          (c.avatar ? '<img class="member-item__avatar" src="' + esc(c.avatar) + '" alt="">' : '') +
+          '<span>' + esc(c.name) + '</span>' +
+          '</label></li>';
+      });
+      html += '</ul>';
+      html += '<div class="form-actions" style="margin-top:16px">' +
+        '<button type="button" class="btn" data-action="close-member-modal">完成</button></div>';
+      body.innerHTML = html;
+    }
+
+    document.getElementById('memberModal').hidden = false;
+  }
+
+  function closeMemberModal() {
+    document.getElementById('memberModal').hidden = true;
+    memberModalForm = null;
+  }
+
+  /* ============================================================
+     HTML 片段：通用组件
+     ============================================================ */
   function linkToolsHTML() {
     return adminOnly('<div class="field__tools">' +
       '<button type="button" class="link-btn" data-action="open-link-picker">🔗 插入链接</button></div>');
@@ -964,12 +1171,19 @@
     return html + '</div>';
   }
 
+  /* 简单条目卡片（显示多个成员） */
   function simpleEntriesHTML(items, ctx) {
     if (!items || !items.length) return '<p class="empty">还没有内容。</p>';
     var html = '';
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
-      var member = findCharacter(item.memberId);
+      var memberIds = getMemberIds(item);
+      var memberNames = [];
+      memberIds.forEach(function (id) {
+        var c = findAnyCharacter(id);
+        if (c) memberNames.push(c.name);
+      });
+
       html += '<div class="entry" data-entry-id="' + esc(item.id) + '">';
       html += adminOnly(
         '<button class="entry__edit" type="button" data-action="edit-entry"' +
@@ -980,12 +1194,16 @@
         '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(item.id) + '" title="删除">×</button>');
       html += '<h4 class="entry__name">' + esc(item.name) + '</h4>';
       if (item.intro) html += '<p class="entry__intro">' + renderRichText(item.intro) + '</p>';
-      if (member) html += '<p class="entry__meta"><span class="entry__label">成员</span>' + esc(member.name) + '</p>';
+      if (memberNames.length) {
+        html += '<p class="entry__meta"><span class="entry__label">成员</span>' +
+          esc(memberNames.join('、')) + '</p>';
+      }
       html += '</div>';
     }
     return html;
   }
 
+  /* 角色卡片 */
   function characterEntriesHTML(items, ctx) {
     if (!items || !items.length) return '<p class="empty">还没有角色。</p>';
     var html = '';
@@ -1015,6 +1233,7 @@
     return html;
   }
 
+  /* 故事卡片 */
   function storyEntriesHTML(items, ctx) {
     if (!items || !items.length) return '<p class="empty">还没有故事。</p>';
     var html = '';
@@ -1029,12 +1248,8 @@
         ' data-world="' + esc(ctx.worldKey || '') + '" data-world-id="' + esc(ctx.worldId || '') +
         '" data-list="' + esc(ctx.listKey) + '" data-id="' + esc(s.id) + '" title="删除">×</button>');
       html += '<h4 class="entry__name">' + esc(s.title || '无题') + '</h4>';
-      if (s.subtitle) {
-        html += '<p class="entry__subtitle">' + esc(s.subtitle) + '</p>';
-      }
-      if (s.body) {
-        html += '<div class="entry__story-body">' + renderRichText(s.body) + '</div>';
-      }
+      if (s.subtitle) html += '<p class="entry__subtitle">' + esc(s.subtitle) + '</p>';
+      if (s.body) html += '<div class="entry__story-body">' + renderRichText(s.body) + '</div>';
       html += '</div>';
     }
     return html;
@@ -1072,7 +1287,7 @@
       ? '<div class="editor" data-form="timeline" data-list="timeline" data-world="" data-world-id=""' +
         (editing ? ' data-editing="true"' : '') + '>' +
         '<div class="field"><label>时间点</label>' +
-        '<input type="text" data-field="time" value="' + esc(ev ? ev.time : '') + '" placeholder="时间点"></div>' +
+        '<input type="text" data-field="time" value="' + esc(ev ? ev.time : '') + '" placeholder="例如：第 4 纪 · 9210 年"></div>' +
         '<div class="field"><label>标题</label>' +
         '<input type="text" data-field="title" value="' + esc(ev ? ev.title : '') + '" placeholder="标题"></div>' +
         '<div class="field field--full"><label>描述</label>' +
@@ -1086,11 +1301,13 @@
     return formHTML + '<div class="timeline' + (items.length ? '' : ' is-empty') + '">' + listHTML + '</div>';
   }
 
+  /* 简单表单：成员改为多选，selectedIds 数组 */
   function simpleFormHTML(listKey, worldKey, worldId, compact) {
     if (!isAdmin) return '';
     var editing = isEditing(listKey, worldKey, worldId);
     var v = editing ? getEntryById(worldKey, worldId, listKey, state.editing.id) : null;
     var label = SIMPLE_LABELS[listKey] || '条目';
+    var selectedIds = v ? getMemberIds(v) : [];
 
     return '<div class="editor' + (compact ? ' editor--compact' : '') + '"' +
       ' data-form="simple" data-list="' + listKey + '"' +
@@ -1098,8 +1315,8 @@
       (editing ? ' data-editing="true"' : '') + '>' +
       '<div class="field"><label>名字</label>' +
       '<input type="text" data-field="name" value="' + esc(v ? v.name : '') + '" placeholder="名称"></div>' +
-      '<div class="field"><label>成员</label>' +
-      memberSelectHTML(worldKey, worldId, v ? v.memberId : '') + '</div>' +
+      '<div class="field"><label>成员（可多选）</label>' +
+      memberSelectHTML(worldKey, worldId, selectedIds) + '</div>' +
       '<div class="field field--full"><label>简介</label>' +
       '<textarea data-field="intro" rows="2" placeholder="简介">' + esc(v ? v.intro : '') + '</textarea>' +
       linkToolsHTML() + '</div>' +
@@ -1241,6 +1458,17 @@
     return best;
   }
 
+  /* 把条目的所有成员名字拼成可搜索的字符串 */
+  function memberNamesText(item) {
+    var ids = getMemberIds(item);
+    var names = [];
+    ids.forEach(function (id) {
+      var c = findAnyCharacter(id);
+      if (c) names.push(c.name);
+    });
+    return names.join(' ');
+  }
+
   function searchAll(keyword) {
     var kw = keyword.trim().toLowerCase();
     if (!kw) return [];
@@ -1253,8 +1481,7 @@
 
     ['factions', 'races', 'settings'].forEach(function (key) {
       (store[key] || []).forEach(function (item) {
-        var member = findCharacter(item.memberId);
-        var s = scoreFields([item.name, item.intro, member ? member.name : ''], kw);
+        var s = scoreFields([item.name, item.intro, memberNamesText(item)], kw);
         if (s > 0) results.push({ type: SIMPLE_LABELS[key], title: item.name, desc: item.intro, score: s });
       });
     });
@@ -1279,8 +1506,7 @@
 
         ['factions', 'races', 'settings'].forEach(function (sub) {
           (w[sub] || []).forEach(function (item) {
-            var member = findCharacter(item.memberId);
-            var s = scoreFields([item.name, item.intro, member ? member.name : ''], kw);
+            var s = scoreFields([item.name, item.intro, memberNamesText(item)], kw);
             if (s > 0) results.push({
               type: pair[1] + ' · ' + SIMPLE_LABELS[sub],
               title: item.name, desc: item.intro, score: s
@@ -1362,6 +1588,13 @@
     var scrollY = window.scrollY;
     renderTabs();
     mainEl.innerHTML = panelHTML(state.activeTab);
+
+    /* 填充所有成员选择器的 chips */
+    var memberSelects = mainEl.querySelectorAll('.member-select');
+    for (var msi = 0; msi < memberSelects.length; msi++) {
+      renderMemberChips(memberSelects[msi]);
+    }
+
     applyEditingAvatar();
 
     if (state.highlightId) {
@@ -1438,12 +1671,14 @@
     var name = nameEl.value.trim();
     if (!name) { toast('请填写名字', 'err'); nameEl.focus(); return; }
 
-    var memberEl = editor.querySelector('[data-field="memberId"]');
+    var memberContainer = editor.querySelector('[data-field="memberIds"]');
+    var memberIds = memberContainer ? parseMemberIds(memberContainer.dataset.selected) : [];
+
     var introEl = editor.querySelector('[data-field="intro"]');
     var data = {
       name: name,
       intro: introEl ? introEl.value.trim() : '',
-      memberId: memberEl && memberEl.value ? memberEl.value : null
+      memberIds: memberIds
     };
 
     if (isEditing(listKey, worldKey, worldId)) {
@@ -1738,9 +1973,10 @@
   }
 
   /* ============================================================
-     事件委托
+     事件委托（main 内部）
      ============================================================ */
   mainEl.addEventListener('click', function (e) {
+    /* 富文本链接跳转 */
     var link = e.target.closest('a.entry-link');
     if (link && mainEl.contains(link)) {
       e.preventDefault();
@@ -1748,22 +1984,37 @@
       return;
     }
 
+    /* 成员 chip 的删除按钮 */
+    var removeChip = e.target.closest('[data-remove-id]');
+    if (removeChip) {
+      var chipContainer = removeChip.closest('.member-select');
+      if (chipContainer) {
+        var selected = parseMemberIds(chipContainer.dataset.selected);
+        var removeId = removeChip.dataset.removeId;
+        selected = selected.filter(function (x) { return x !== removeId; });
+        chipContainer.dataset.selected = selected.join(',');
+        renderMemberChips(chipContainer);
+      }
+      return;
+    }
+
     var btn = e.target.closest('[data-action]');
     if (!btn || !mainEl.contains(btn)) return;
 
     switch (btn.dataset.action) {
-      case 'add-timeline':  submitTimeline(btn); break;
-      case 'del-timeline':  delTimeline(btn.dataset.id); break;
-      case 'add-simple':    submitSimple(btn); break;
-      case 'add-character': submitCharacter(btn); break;
-      case 'add-story':     submitStory(btn); break;
-      case 'add-world':     addWorld(btn); break;
-      case 'del-entry':     delEntry(btn); break;
-      case 'del-world':     delWorld(btn); break;
-      case 'edit-entry':    startEdit(btn); break;
-      case 'cancel-edit':   cancelEdit(); break;
-      case 'sub-tab':       switchSubTab(btn); break;
-      case 'open-link-picker': openLinkPicker(btn); break;
+      case 'add-timeline':   submitTimeline(btn); break;
+      case 'del-timeline':   delTimeline(btn.dataset.id); break;
+      case 'add-simple':     submitSimple(btn); break;
+      case 'add-character':  submitCharacter(btn); break;
+      case 'add-story':      submitStory(btn); break;
+      case 'add-world':      addWorld(btn); break;
+      case 'del-entry':      delEntry(btn); break;
+      case 'del-world':      delWorld(btn); break;
+      case 'edit-entry':     startEdit(btn); break;
+      case 'cancel-edit':    cancelEdit(); break;
+      case 'sub-tab':        switchSubTab(btn); break;
+      case 'open-link-picker':   openLinkPicker(btn); break;
+      case 'open-member-picker': openMemberPicker(btn); break;
     }
   });
 
@@ -1801,12 +2052,36 @@
     render();
   });
 
+  /* 链接模态框 */
   document.getElementById('linkModal').addEventListener('click', function (e) {
     if (e.target.closest('[data-action="close-link-modal"]')) { closeLinkModal(); return; }
     var item = e.target.closest('.link-item');
     if (item) pickLinkTarget(item.dataset.linkId, item.dataset.linkName);
   });
 
+  /* 成员模态框：checkbox 变化时实时同步到表单 */
+  document.getElementById('memberModalBody').addEventListener('change', function (e) {
+    var cb = e.target.closest('input[type="checkbox"]');
+    if (!cb || !memberModalForm) return;
+
+    var selected = parseMemberIds(memberModalForm.dataset.selected);
+    if (cb.checked) {
+      if (selected.indexOf(cb.value) === -1) selected.push(cb.value);
+    } else {
+      selected = selected.filter(function (id) { return id !== cb.value; });
+    }
+    memberModalForm.dataset.selected = selected.join(',');
+    renderMemberChips(memberModalForm);
+  });
+
+  /* 成员模态框：点击关闭/完成 */
+  document.getElementById('memberModal').addEventListener('click', function (e) {
+    if (e.target.closest('[data-action="close-member-modal"]')) {
+      closeMemberModal();
+    }
+  });
+
+  /* 搜索 */
   var searchInput = document.getElementById('searchInput');
   document.getElementById('searchBtn').addEventListener('click', function () {
     var kw = (searchInput.value || '').trim();
@@ -1865,8 +2140,10 @@
     if (e.key === 'Escape') {
       var am = document.getElementById('authModal');
       var lm = document.getElementById('linkModal');
+      var mm = document.getElementById('memberModal');
       if (am && !am.hidden) am.hidden = true;
       if (lm && !lm.hidden) closeLinkModal();
+      if (mm && !mm.hidden) closeMemberModal();
     }
   });
 
